@@ -8,6 +8,7 @@ import { readAddress } from "../actions/address/read/execute";
 import { createAddress } from "../actions/address/create/execute";
 import { readAgentslog } from "../actions/agentslog/read/execute";
 import { readAppointment } from "../actions/appointments/read/execute";
+import { createAppointment } from "../actions/appointments/create/execute";
 import { readEstate } from "../actions/estate/read/execute";
 import { sendMail } from "../actions/email/do/execute";
 
@@ -57,6 +58,9 @@ export async function router(
         switch (operation) {
           case "read":
             responseData = await readAppointment.call(this, i);
+            break;
+          case "create":
+            responseData = await createAppointment.call(this, i);
             break;
           default:
             break;
