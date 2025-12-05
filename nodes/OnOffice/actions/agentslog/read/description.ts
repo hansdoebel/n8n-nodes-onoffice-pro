@@ -137,10 +137,10 @@ export const readAgentslogDescription: INodeProperties[] = [
                 name: "field",
                 type: "options",
                 options: [
+                  { name: "Adress_nr", value: "Adress_nr" },
                   { name: "Aktionsart", value: "Aktionsart" },
                   { name: "Aktionstyp", value: "Aktionstyp" },
                   { name: "Datum", value: "Datum" },
-                  { name: "Adress_nr", value: "Adress_nr" },
                   { name: "Objekt_nr", value: "Objekt_nr" },
                 ],
                 default: "Aktionsart",
@@ -162,7 +162,7 @@ export const readAgentslogDescription: INodeProperties[] = [
                 type: "string",
                 default: "",
                 description:
-                  "For IN or BETWEEN, use comma-separated values (e.g. 'Download,Email' or '2024-01-01,2024-12-31').",
+                  "For IN or BETWEEN, use comma-separated values (e.g. 'Download,Email' or '2024-01-01,2024-12-31')",
               },
             ],
           },

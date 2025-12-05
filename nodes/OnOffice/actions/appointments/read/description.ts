@@ -56,15 +56,14 @@ export const readAppointmentDescription: INodeProperties[] = [
     },
     options: [
       {
-        displayName: "Start date",
-        name: "datestart",
-        description:
-          "Start date of the time interval for the requested appointments",
-        type: "dateTime",
-        default: "",
+        displayName: "All Users",
+        name: "allusers",
+        description: "Whether to read out all data",
+        type: "boolean",
+        default: false,
       },
       {
-        displayName: "End date",
+        displayName: "End Date",
         name: "dateend",
         description:
           "End date of the time interval for the requested appointments",
@@ -72,34 +71,18 @@ export const readAppointmentDescription: INodeProperties[] = [
         default: "",
       },
       {
-        displayName: "Modified start",
-        name: "modifiedstart",
-        description: "Earliest date of last edit for requested appointments",
-        type: "dateTime",
-        default: "",
-      },
-      {
-        displayName: "Modified end",
+        displayName: "Modified End",
         name: "modifiedend",
         description: "Latest date of last edit for requested appointments",
         type: "dateTime",
         default: "",
       },
       {
-        displayName: "Users",
-        name: "users",
-        description:
-          "User IDs. Specify here the appointments of which users you want to read out. Works only in combination with the parameters datestart and dateend",
-        type: "string",
-        placeholder: "Add Users",
-        default: {},
-      },
-      {
-        displayName: "All Users",
-        name: "allusers",
-        description: "Whether to read out all data",
-        type: "boolean",
-        default: false,
+        displayName: "Modified Start",
+        name: "modifiedstart",
+        description: "Earliest date of last edit for requested appointments",
+        type: "dateTime",
+        default: "",
       },
       {
         displayName: "Show Cancelled",
@@ -115,6 +98,23 @@ export const readAppointmentDescription: INodeProperties[] = [
           "Whether the overall confirmation status of the appointment is listed as response parameter confirmationStatus",
         type: "boolean",
         default: false,
+      },
+      {
+        displayName: "Start Date",
+        name: "datestart",
+        description:
+          "Start date of the time interval for the requested appointments",
+        type: "dateTime",
+        default: "",
+      },
+      {
+        displayName: "Users",
+        name: "users",
+        description:
+          "User IDs. Specify here the appointments of which users you want to read out. Works only in combination with the parameters datestart and dateend",
+        type: "string",
+        placeholder: "Add Users",
+        default: "",
       },
     ],
   },
