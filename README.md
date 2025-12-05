@@ -92,4 +92,7 @@ In n8n:
 
 ## 📜 Version history
 
+- `0.0.4` – appointments (read, create)
+- `0.0.3` – agentslog (read), email (do)
+- `0.0.2` – address (read), estate (read)
 - `0.0.1` – Initial release
