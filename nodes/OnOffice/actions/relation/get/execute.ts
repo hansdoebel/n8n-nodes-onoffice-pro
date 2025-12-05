@@ -4,7 +4,8 @@ import {
   INodeExecutionData,
   NodeOperationError,
 } from "n8n-workflow";
-import { apiRequest } from "../../../transport";
+
+import { apiRequest } from "../transport";
 
 export async function getRelation(
   this: IExecuteFunctions,
