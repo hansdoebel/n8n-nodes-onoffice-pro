@@ -6,6 +6,16 @@ This is a custom n8n community node providing an integration with onOffice.
 
 ---
 
+## 📚 Table of Contents
+
+- Features
+- Installation
+- Authentication
+- Roadmap
+- Resources
+
+---
+
 ## 📁 Features
 
 - Address (Create, Read)
@@ -34,6 +44,39 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 4. Enter the npm package name, and version number if required.
 5. Agree to the risks of using community nodes: select I understand the risks of installing unverified code from a public source.
 6. Select Install. n8n installs the node, and returns to the Community Nodes list in Settings.
+
+---
+
+## 🔐 Authentication
+
+The onOffice node uses API Token authentication via the official onOffice Enterprise API.
+
+1. Generate API Credentials
+
+Inside onOffice Enterprise:
+- Go to Tools → API
+- Create a new API token
+
+Record the following values:
+- API Token (string)
+- Secret (string)
+
+2. Add credentials in n8n
+
+In n8n:
+
+- Go to Credentials
+- Create OnOffice API
+- Enter: Token, Secret
+
+---
+
+## 🚧 Roadmap
+
+- Appointment Module (Full CRUD for appointments)
+- Estate Module Enhancements
+- Address Module Enhancements
+- Node UX Enhancements (Auto-load dropdowns)
 
 ---
 
