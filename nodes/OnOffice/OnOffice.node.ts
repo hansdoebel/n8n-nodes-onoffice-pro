@@ -7,11 +7,13 @@ import {
 } from "n8n-workflow";
 
 import { router } from "./utils/router";
+
 import * as address from "./actions/address";
-import * as estate from "./actions/estate";
 import * as agentslog from "./actions/agentslog";
-import * as email from "./actions/email";
 import * as appointments from "./actions/appointments";
+import * as email from "./actions/email";
+import * as estate from "./actions/estate";
+import * as relation from "./actions/relation";
 
 export class OnOffice implements INodeType {
   description: INodeTypeDescription = {
@@ -61,6 +63,10 @@ export class OnOffice implements INodeType {
             value: "estate",
           },
           {
+            name: "Relation",
+            value: "relation",
+          },
+          {
             name: "Setting",
             value: "settings",
           },
@@ -76,6 +82,7 @@ export class OnOffice implements INodeType {
       ...appointments.descriptions,
       ...email.descriptions,
       ...estate.descriptions,
+      ...relation.descriptions,
     ],
   };
   async execute(this: IExecuteFunctions) {

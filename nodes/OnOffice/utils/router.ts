@@ -11,6 +11,7 @@ import { readAppointment } from "../actions/appointments/read/execute";
 import { createAppointment } from "../actions/appointments/create/execute";
 import { readEstate } from "../actions/estate/read/execute";
 import { sendMail } from "../actions/email/do/execute";
+import { getRelation } from "../actions/relation/get/execute";
 
 export async function router(
   this: IExecuteFunctions,
@@ -70,6 +71,15 @@ export async function router(
         switch (operation) {
           case "sendMail":
             responseData = await sendMail.call(this, i);
+            break;
+          default:
+            break;
+        }
+        break;
+      case "relation":
+        switch (operation) {
+          case "get":
+            responseData = await getRelation.call(this, i);
             break;
           default:
             break;

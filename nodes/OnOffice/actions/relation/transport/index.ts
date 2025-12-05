@@ -62,15 +62,6 @@ export async function apiRequest(
     json: true,
   };
 
-  // try {
-  // 	const response = await this.helpers.request(request);
-  // 	console.log('API Response:', JSON.stringify(response, null, 2)); // Log response for debugging
-  // 	return response;
-  // } catch (error) {
-  // 	console.error('API Request Error:', error);
-  // 	throw new NodeOperationError(this.getNode(), `OnOffice API request error: ${error.message}`);
-  // }
-
   try {
     return await this.helpers.request(request);
   } catch (error) {
