@@ -2,34 +2,34 @@ import type { INodeProperties } from "n8n-workflow";
 
 export const getRelationDescription: INodeProperties[] = [
   {
-    displayName: "JSON Parameters",
-    name: "jsonParameters",
-    type: "boolean",
-    default: false,
+    displayName: "Relation",
+    name: "relationtype",
+    type: "options",
     displayOptions: {
       show: {
         resource: ["relation"],
         operation: ["get"],
       },
     },
-  },
-  {
-    displayName: "Parameters",
-    name: "parameters",
-    type: "json",
-    typeOptions: {
-      alwaysOpenEditWindow: true,
-    },
-    default: "",
-    displayOptions: {
-      show: {
-        resource: ["relation"],
-        operation: ["get"],
-        jsonParameters: [true],
+    options: [
+      {
+        name: "Buyer",
+        value:
+          "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:buyer",
       },
-    },
+      {
+        name: "Interested",
+        value:
+          "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:interested",
+      },
+      {
+        name: "Tenant",
+        value:
+          "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:renter",
+      },
+    ],
+    default: "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:buyer",
   },
-
   {
     displayName: "Additional Fields",
     name: "additionalFields",
@@ -40,7 +40,6 @@ export const getRelationDescription: INodeProperties[] = [
       show: {
         resource: ["relation"],
         operation: ["get"],
-        jsonParameters: [false],
       },
     },
     options: [
@@ -59,25 +58,6 @@ export const getRelationDescription: INodeProperties[] = [
         description:
           "Similar to the parameter parentIds. (If childIds is specified, the parentids are returned).",
         default: "",
-      },
-      {
-        displayName: "Relation",
-        name: "relationtype",
-        type: "options",
-        options: [
-          {
-            name: "Buyer",
-            value:
-              "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:buyer",
-          },
-          {
-            name: "Tenant",
-            value:
-              "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:renter",
-          },
-        ],
-        default:
-          "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:buyer",
       },
     ],
   },
