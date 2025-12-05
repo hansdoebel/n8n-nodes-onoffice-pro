@@ -92,6 +92,7 @@ In n8n:
 
 ## 📜 Version history
 
+- `0.0.6` – fixed filter rules for readAgentslog operation
 - `0.0.5` – added settings, templates, relations
 - `0.0.4` – appointments (read, create)
 - `0.0.3` – agentslog (read), email (do)
