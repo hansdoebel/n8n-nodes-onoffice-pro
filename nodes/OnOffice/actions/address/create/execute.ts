@@ -5,6 +5,10 @@ import {
   NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import {
+  buildParameters,
+  parseCommaSeparated,
+} from "../../../utils/parameterBuilder";
 
 export async function createAddress(
   this: IExecuteFunctions,
@@ -22,7 +26,7 @@ export async function createAddress(
       "",
     ) as string;
     if (recordIdInput) {
-      parameters.recordids = recordIdInput.split(",").map((id) => id.trim());
+      parameters.recordids = parseCommaSeparated(recordIdInput);
     }
 
     const fieldSelections = this.getNodeParameter(
@@ -40,19 +44,7 @@ export async function createAddress(
       {},
     ) as IDataObject;
 
-    parameters = {
-      ...parameters,
-      ...(additionalFields.formatoutput !== undefined &&
-        { formatoutput: additionalFields.formatoutput }),
-      ...(additionalFields.listlimit !== undefined &&
-        { listlimit: additionalFields.listlimit }),
-      ...(additionalFields.listoffset !== undefined &&
-        { listoffset: additionalFields.listoffset }),
-      ...(additionalFields.sortby !== undefined &&
-        { sortby: additionalFields.sortby }),
-      ...(additionalFields.sortorder !== undefined &&
-        { sortorder: additionalFields.sortorder }),
-    };
+    parameters = buildParameters(parameters, additionalFields);
 
     const responseData = await apiRequest.call(this, {
       resourceType: "address",

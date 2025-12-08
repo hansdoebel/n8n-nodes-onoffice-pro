@@ -5,6 +5,7 @@ import {
   NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import { parseCommaSeparated } from "../../../utils/parameterBuilder";
 
 interface Parameters {
   emailidentity: string;
@@ -50,10 +51,7 @@ export async function sendMail(
       itemIndex,
       "",
     ) as string;
-    const receiver = receiverInput
-      .split(",")
-      .map((email) => email.trim())
-      .filter(Boolean);
+    const receiver = parseCommaSeparated(receiverInput);
 
     if (receiver.length === 0) {
       throw new NodeOperationError(
@@ -73,9 +71,9 @@ export async function sendMail(
 
     if (additionalFields) {
       if (additionalFields.estateids) {
-        parameters.estateids = (additionalFields.estateids as string)
-          .split(",")
-          .map((id) => id.trim());
+        parameters.estateids = parseCommaSeparated(
+          additionalFields.estateids as string,
+        );
       }
       if (additionalFields.templateid) {
         parameters.templateid = parseInt(
@@ -90,32 +88,29 @@ export async function sendMail(
         }
       }
       if (additionalFields.pdfexposeidentifiers) {
-        parameters.pdfexposeidentifiers =
-          (additionalFields.pdfexposeidentifiers as string)
-            .split(",")
-            .map((id) => id.trim());
+        parameters.pdfexposeidentifiers = parseCommaSeparated(
+          additionalFields.pdfexposeidentifiers as string,
+        );
       }
       if (additionalFields.onlineattachmentids) {
-        parameters.onlineattachmentids =
-          (additionalFields.onlineattachmentids as string)
-            .split(",")
-            .map((id) => id.trim());
+        parameters.onlineattachmentids = parseCommaSeparated(
+          additionalFields.onlineattachmentids as string,
+        );
       }
       if (additionalFields.documentattributes) {
-        parameters.documentattributes =
-          (additionalFields.documentattributes as string)
-            .split(",")
-            .map((id) => id.trim());
+        parameters.documentattributes = parseCommaSeparated(
+          additionalFields.documentattributes as string,
+        );
       }
       if (additionalFields.pdfformids) {
-        parameters.pdfformids = (additionalFields.pdfformids as string)
-          .split(",")
-          .map((id) => id.trim());
+        parameters.pdfformids = parseCommaSeparated(
+          additionalFields.pdfformids as string,
+        );
       }
       if (additionalFields.pdfletterids) {
-        parameters.pdfletterids = (additionalFields.pdfletterids as string)
-          .split(",")
-          .map((id) => id.trim());
+        parameters.pdfletterids = parseCommaSeparated(
+          additionalFields.pdfletterids as string,
+        );
       }
 
       if (

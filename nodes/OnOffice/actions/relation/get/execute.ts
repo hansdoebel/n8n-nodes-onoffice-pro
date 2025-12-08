@@ -5,6 +5,7 @@ import {
   NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 
 export async function getRelation(
   this: IExecuteFunctions,
@@ -25,21 +26,8 @@ export async function getRelation(
     const parentidsString = (additionalFields.parentids as string) || "";
     const childidsString = (additionalFields.childids as string) || "";
 
-    const parentids: number[] = parentidsString
-      ? parentidsString
-        .split(",")
-        .map((id) => id.trim())
-        .filter((id) => id.length > 0)
-        .map((id) => Number(id))
-      : [];
-
-    const childids: number[] = childidsString
-      ? childidsString
-        .split(",")
-        .map((id) => id.trim())
-        .filter((id) => id.length > 0)
-        .map((id) => Number(id))
-      : [];
+    const parentids: number[] = parseCommaSeparatedNumbers(parentidsString);
+    const childids: number[] = parseCommaSeparatedNumbers(childidsString);
 
     const parameters: IDataObject = {
       relationtype,

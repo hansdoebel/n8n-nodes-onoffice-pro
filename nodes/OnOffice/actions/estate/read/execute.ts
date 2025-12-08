@@ -5,6 +5,10 @@ import {
   NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import {
+  buildParameters,
+  COMMON_FIELDS,
+} from "../../../utils/parameterBuilder";
 
 export async function readEstate(
   this: IExecuteFunctions,
@@ -36,21 +40,9 @@ export async function readEstate(
       {},
     ) as IDataObject;
 
-    parameters = {
-      ...parameters,
-      ...(additionalFields.formatoutput !== undefined &&
-        { formatoutput: additionalFields.formatoutput }),
-      ...(additionalFields.listlimit !== undefined &&
-        { listlimit: additionalFields.listlimit }),
-      ...(additionalFields.listoffset !== undefined &&
-        { listoffset: additionalFields.listoffset }),
-      ...(additionalFields.sortby !== undefined &&
-        { sortby: additionalFields.sortby }),
-      ...(additionalFields.sortorder !== undefined &&
-        { sortorder: additionalFields.sortorder }),
-      ...(additionalFields.addMobileUrl !== undefined &&
-        { addMobileUrl: additionalFields.addMobileUrl }),
-    };
+    // Build parameters with common fields plus estate-specific field
+    const estateFields = [...COMMON_FIELDS, "addMobileUrl"];
+    parameters = buildParameters(parameters, additionalFields, estateFields);
 
     const responseData = await apiRequest.call(this, {
       resourceType: "estate",

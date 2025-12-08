@@ -6,6 +6,7 @@ import {
   NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 
 interface TemplateParams {
   category?: string;
@@ -35,10 +36,7 @@ export async function getTemplates(
 
     for (const [key, value] of Object.entries(additionalFields)) {
       if (key === "mailtemplateids" && typeof value === "string") {
-        parameters.mailtemplateids = value
-          .split(",")
-          .map((num) => parseInt(num.trim()))
-          .filter((num) => !isNaN(num));
+        parameters.mailtemplateids = parseCommaSeparatedNumbers(value);
       } else {
         parameters[key as keyof TemplateParams] = value as never;
       }
