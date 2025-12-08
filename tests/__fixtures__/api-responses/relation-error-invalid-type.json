@@ -1,0 +1,23 @@
+{
+  "status": {
+    "code": 500,
+    "errorcode": 132,
+    "message": "No or unknown relation given"
+  },
+  "response": {
+    "results": [
+      {
+        "actionid": "urn:onoffice-de-ns:smart:2.5:smartml:action:get",
+        "resourceid": "",
+        "resourcetype": "idsfromrelation",
+        "cacheable": false,
+        "identifier": "",
+        "data": [],
+        "status": {
+          "errorcode": 132,
+          "message": "No or unknown relation given"
+        }
+      }
+    ]
+  }
+}
