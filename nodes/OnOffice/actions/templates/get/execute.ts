@@ -5,7 +5,7 @@ import {
   INodeExecutionData,
   NodeOperationError,
 } from "n8n-workflow";
-import { apiRequest } from "../transport";
+import { apiRequest } from "../../../utils/apiRequest";
 
 interface TemplateParams {
   category?: string;
@@ -22,11 +22,11 @@ export async function getTemplates(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
-  const parameters: TemplateParams = {
-    type: this.getNodeParameter("type", itemIndex, "") as string,
-  };
-
   try {
+    const parameters: TemplateParams = {
+      type: this.getNodeParameter("type", itemIndex, "") as string,
+    };
+
     const additionalFields = this.getNodeParameter(
       "additionalFields",
       itemIndex,
@@ -44,15 +44,14 @@ export async function getTemplates(
       }
     }
 
-    const responseData = await apiRequest.call(
-      this,
-      "templates",
-      "get",
-      convertToIDataObject(parameters),
-    );
+    const responseData = await apiRequest.call(this, {
+      resourceType: "templates",
+      operation: "get",
+      parameters: convertToIDataObject(parameters),
+    });
+
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
-    console.error("Error details:", { error });
     throw new NodeOperationError(
       this.getNode(),
       `Error calling onOffice API: ${error.message}`,
