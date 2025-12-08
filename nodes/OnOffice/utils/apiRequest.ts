@@ -4,17 +4,34 @@ import {
   IHttpRequestOptions,
   NodeOperationError,
 } from "n8n-workflow";
+import { getActionId } from "./actionIds";
+import { generateHmac } from "./hmac";
+import { API_URL } from "./constants";
 
-import { generateHmac } from "../../../utils/hmac";
-import { getActionId } from "../../../utils/actionIds";
-import { API_URL } from "../../../utils/constants";
+interface RequestBody {
+  actionid: string;
+  resourcetype: string;
+  identifier: string;
+  timestamp: number;
+  hmac: string;
+  hmac_version: number;
+  resourceid: string;
+  parameters: IDataObject;
+}
+
+interface ApiRequestOptions {
+  resourceType: string;
+  operation: string;
+  parameters: IDataObject;
+  resourceId?: string;
+}
 
 export async function apiRequest(
   this: IExecuteFunctions,
-  resourceType: string,
-  operation: string,
-  body: IDataObject,
+  options: ApiRequestOptions,
 ): Promise<any> {
+  const { resourceType, operation, parameters, resourceId = "" } = options;
+
   const credentials = await this.getCredentials("onOfficeApi");
   if (!credentials) {
     throw new NodeOperationError(
@@ -41,15 +58,15 @@ export async function apiRequest(
     actionId,
   );
 
-  const actionBody: IDataObject = {
+  const requestBody: RequestBody = {
     actionid: actionId,
     resourcetype: resourceType,
     identifier: "",
-    timestamp: timestamp,
+    timestamp,
     hmac: hmacSignature,
     hmac_version: 2,
-    resourceid: "",
-    parameters: body || {},
+    resourceid: resourceId,
+    parameters,
   };
 
   const request: IHttpRequestOptions = {
@@ -57,7 +74,7 @@ export async function apiRequest(
     url: API_URL,
     body: {
       token: credentials.token,
-      request: { actions: [actionBody] },
+      request: { actions: [requestBody] },
     },
     json: true,
   };
@@ -65,7 +82,6 @@ export async function apiRequest(
   try {
     return await this.helpers.request(request);
   } catch (error) {
-    console.error("API Request Error:", error);
     throw new NodeOperationError(
       this.getNode(),
       `OnOffice API request error: ${error.message}`,

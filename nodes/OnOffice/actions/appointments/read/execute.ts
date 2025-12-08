@@ -4,21 +4,20 @@ import {
   INodeExecutionData,
   NodeOperationError,
 } from "n8n-workflow";
-
-import { apiRequest } from "../transport";
+import { apiRequest } from "../../../utils/apiRequest";
 
 export async function readAppointment(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
-  const useJsonParameters = this.getNodeParameter(
-    "jsonParameters",
-    itemIndex,
-    false,
-  ) as boolean;
-  let parameters: IDataObject = {};
-
   try {
+    const useJsonParameters = this.getNodeParameter(
+      "jsonParameters",
+      itemIndex,
+      false,
+    ) as boolean;
+    let parameters: IDataObject = {};
+
     if (useJsonParameters) {
       const jsonParameters = this.getNodeParameter(
         "parameters",
@@ -33,7 +32,7 @@ export async function readAppointment(
         [],
       ) as string[];
       if (fieldSelections.length > 0) {
-        parameters["data"] = fieldSelections;
+        parameters.data = fieldSelections;
       }
     }
 
@@ -49,23 +48,20 @@ export async function readAppointment(
       {},
     ) as IDataObject;
 
-    const requestBody: IDataObject = {
-      resourceid: resourceid,
-      parameters: {
-        ...parameters,
-        ...additionalFields,
-      },
+    const finalParameters: IDataObject = {
+      ...parameters,
+      ...additionalFields,
     };
 
-    const responseData = await apiRequest.call(
-      this,
-      "calendar",
-      "read",
-      requestBody,
-    );
+    const responseData = await apiRequest.call(this, {
+      resourceType: "calendar",
+      operation: "read",
+      parameters: finalParameters,
+      resourceId: resourceid,
+    });
+
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
-    console.error(error);
     throw new NodeOperationError(
       this.getNode(),
       `Error calling onOffice API: ${error.message}`,
