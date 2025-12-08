@@ -2,9 +2,12 @@ import {
   IDataObject,
   IExecuteFunctions,
   INodeExecutionData,
-  NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import {
+  handleExecutionError,
+  throwMissingParameterError,
+} from "../../../utils/errorHandling";
 
 export async function deleteAppointment(
   this: IExecuteFunctions,
@@ -14,10 +17,7 @@ export async function deleteAppointment(
     const resourceid = this.getNodeParameter("resourceid", itemIndex) as string;
 
     if (!resourceid) {
-      throw new NodeOperationError(
-        this.getNode(),
-        "Resource ID is required to delete the appointment",
-      );
+      throwMissingParameterError(this, "resourceid", itemIndex);
     }
 
     const parameters: IDataObject = {};
@@ -31,9 +31,10 @@ export async function deleteAppointment(
 
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
-    throw new NodeOperationError(
-      this.getNode(),
-      `Error calling onOffice API: ${error.message}`,
-    );
+    handleExecutionError(this, error, {
+      resource: "appointments",
+      operation: "delete",
+      itemIndex,
+    });
   }
 }

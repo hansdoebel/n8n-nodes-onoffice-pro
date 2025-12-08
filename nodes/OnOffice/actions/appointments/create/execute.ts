@@ -2,10 +2,10 @@ import {
   IDataObject,
   IExecuteFunctions,
   INodeExecutionData,
-  NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
+import { handleExecutionError } from "../../../utils/errorHandling";
 
 export async function createAppointment(
   this: IExecuteFunctions,
@@ -97,9 +97,10 @@ export async function createAppointment(
 
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
-    throw new NodeOperationError(
-      this.getNode(),
-      `Error calling API: ${error.message}`,
-    );
+    handleExecutionError(this, error, {
+      resource: "appointments",
+      operation: "create",
+      itemIndex,
+    });
   }
 }

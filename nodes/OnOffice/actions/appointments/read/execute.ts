@@ -2,9 +2,9 @@ import {
   IDataObject,
   IExecuteFunctions,
   INodeExecutionData,
-  NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import { handleExecutionError } from "../../../utils/errorHandling";
 
 export async function readAppointment(
   this: IExecuteFunctions,
@@ -62,9 +62,10 @@ export async function readAppointment(
 
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
-    throw new NodeOperationError(
-      this.getNode(),
-      `Error calling onOffice API: ${error.message}`,
-    );
+    handleExecutionError(this, error, {
+      resource: "appointments",
+      operation: "read",
+      itemIndex,
+    });
   }
 }

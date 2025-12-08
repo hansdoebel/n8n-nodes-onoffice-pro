@@ -2,13 +2,13 @@ import {
   IDataObject,
   IExecuteFunctions,
   INodeExecutionData,
-  NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   buildParameters,
   COMMON_FIELDS,
 } from "../../../utils/parameterBuilder";
+import { handleExecutionError } from "../../../utils/errorHandling";
 
 export async function readEstate(
   this: IExecuteFunctions,
@@ -53,9 +53,10 @@ export async function readEstate(
 
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
-    throw new NodeOperationError(
-      this.getNode(),
-      `Error calling onOffice API: ${error.message}`,
-    );
+    handleExecutionError(this, error, {
+      resource: "estate",
+      operation: "read",
+      itemIndex,
+    });
   }
 }

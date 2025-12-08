@@ -2,10 +2,14 @@ import {
   IDataObject,
   IExecuteFunctions,
   INodeExecutionData,
-  NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparated } from "../../../utils/parameterBuilder";
+import {
+  handleExecutionError,
+  throwInvalidParameterError,
+  throwValidationError,
+} from "../../../utils/errorHandling";
 
 interface Parameters {
   emailidentity: string;
@@ -54,9 +58,10 @@ export async function sendMail(
     const receiver = parseCommaSeparated(receiverInput);
 
     if (receiver.length === 0) {
-      throw new NodeOperationError(
-        this.getNode(),
-        "At least one valid receiver is required.",
+      throwValidationError(
+        this,
+        "At least one valid receiver is required",
+        itemIndex,
       );
     }
 
@@ -81,9 +86,11 @@ export async function sendMail(
           10,
         );
         if (isNaN(parameters.templateid)) {
-          throw new NodeOperationError(
-            this.getNode(),
-            "Template ID must be a valid integer.",
+          throwInvalidParameterError(
+            this,
+            "templateid",
+            "must be a valid integer",
+            itemIndex,
           );
         }
       }
@@ -170,9 +177,10 @@ export async function sendMail(
 
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
-    throw new NodeOperationError(
-      this.getNode(),
-      `Error calling OnOffice API: ${error.message}`,
-    );
+    handleExecutionError(this, error, {
+      resource: "email",
+      operation: "sendMail",
+      itemIndex,
+    });
   }
 }
