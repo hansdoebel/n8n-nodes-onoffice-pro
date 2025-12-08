@@ -5,6 +5,7 @@ import {
   NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 
 export async function createAppointment(
   this: IExecuteFunctions,
@@ -72,12 +73,9 @@ export async function createAppointment(
         itemIndex,
         "",
       ) as string;
-      const relatedAddressIds = relatedAddressIdsParam
-        ? relatedAddressIdsParam
-          .split(",")
-          .map(Number)
-          .filter((id) => !isNaN(id))
-        : [];
+      const relatedAddressIds = parseCommaSeparatedNumbers(
+        relatedAddressIdsParam,
+      );
 
       const relatedEstateId = this.getNodeParameter(
         "additionalFields.relatedEstateId",

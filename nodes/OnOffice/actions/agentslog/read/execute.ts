@@ -5,13 +5,17 @@ import {
   NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
+import {
+  buildParameters,
+  parseCommaSeparated,
+} from "../../../utils/parameterBuilder";
 
 export async function readAgentslog(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    const parameters: IDataObject = {
+    let parameters: IDataObject = {
       data: [],
     };
 
@@ -35,19 +39,13 @@ export async function readAgentslog(
     // Address ID (comma-separated string → array)
     const addressIdInput = (additionalFields.addressid ?? "") as string;
     if (addressIdInput) {
-      parameters.addressid = addressIdInput
-        .split(",")
-        .map((id) => id.trim())
-        .filter(Boolean);
+      parameters.addressid = parseCommaSeparated(addressIdInput);
     }
 
     // Estate ID (comma-separated string → array)
     const estateIdInput = (additionalFields.estateid ?? "") as string;
     if (estateIdInput) {
-      parameters.estateid = estateIdInput
-        .split(",")
-        .map((id) => id.trim())
-        .filter(Boolean);
+      parameters.estateid = parseCommaSeparated(estateIdInput);
     }
 
     // Project ID
@@ -123,25 +121,17 @@ export async function readAgentslog(
       parameters.filter = computedFilter;
     }
 
-    // Pagination / sorting / flags
-    if (additionalFields.listlimit !== undefined) {
-      parameters.listlimit = additionalFields.listlimit as number;
-    }
-    if (additionalFields.listoffset !== undefined) {
-      parameters.listoffset = additionalFields.listoffset as number;
-    }
-    if (additionalFields.sortby !== undefined) {
-      parameters.sortby = additionalFields.sortby as string;
-    }
-    if (additionalFields.sortorder !== undefined) {
-      parameters.sortorder = additionalFields.sortorder as string;
-    }
-    if (additionalFields.fullmail !== undefined) {
-      parameters.fullmail = additionalFields.fullmail as boolean;
-    }
-    if (additionalFields.tracking !== undefined) {
-      parameters.tracking = additionalFields.tracking as boolean;
-    }
+    // Add common pagination/sorting fields and agentslog-specific flags
+    const agentslogFields = [
+      "listlimit",
+      "listoffset",
+      "sortby",
+      "sortorder",
+      "fullmail",
+      "tracking",
+    ];
+    const commonFields = buildParameters({}, additionalFields, agentslogFields);
+    parameters = { ...parameters, ...commonFields };
 
     const responseData = await apiRequest.call(this, {
       resourceType: "agentslog",
