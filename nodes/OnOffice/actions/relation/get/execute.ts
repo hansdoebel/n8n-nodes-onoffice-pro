@@ -1,8 +1,4 @@
-import {
-  IDataObject,
-  IExecuteFunctions,
-  INodeExecutionData,
-} from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 import {
@@ -10,25 +6,28 @@ import {
   throwValidationError,
 } from "../../../utils/errorHandling";
 import { RelationParameters } from "../../../utils/types";
+import { extractString } from "../../../utils/parameterExtraction";
+import { extractResponseData } from "../../../utils/responseHandler";
 
 export async function getRelation(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    const relationtype = this.getNodeParameter(
-      "relationtype",
-      itemIndex,
-    ) as string;
+    const relationtype = extractString(this, "relationtype", itemIndex, "");
 
-    const additionalFields = this.getNodeParameter(
-      "additionalFields",
+    const parentidsString = extractString(
+      this,
+      "additionalFields.parentids",
       itemIndex,
-      {},
-    ) as IDataObject;
-
-    const parentidsString = (additionalFields.parentids as string) || "";
-    const childidsString = (additionalFields.childids as string) || "";
+      "",
+    );
+    const childidsString = extractString(
+      this,
+      "additionalFields.childids",
+      itemIndex,
+      "",
+    );
 
     const parentids: number[] = parseCommaSeparatedNumbers(parentidsString);
     const childids: number[] = parseCommaSeparatedNumbers(childidsString);
@@ -61,13 +60,14 @@ export async function getRelation(
       );
     }
 
-    const responseData = await apiRequest.call(this, {
+    const response = await apiRequest.call(this, {
       resourceType: "idsfromrelation",
       operation: "get",
       parameters,
     });
 
-    return this.helpers.returnJsonArray(responseData as IDataObject[]);
+    const responseData = extractResponseData(response);
+    return this.helpers.returnJsonArray(responseData);
   } catch (error: any) {
     handleExecutionError(this, error, {
       resource: "relation",

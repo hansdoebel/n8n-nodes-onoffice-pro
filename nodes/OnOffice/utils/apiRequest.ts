@@ -6,12 +6,12 @@ import {
 import { getActionId } from "./actionIds";
 import { generateHmac } from "./hmac";
 import { API_URL } from "./constants";
-import { ApiRequestOptions, RequestBody } from "./types";
+import { ApiRequestOptions, OnOfficeApiResponse, RequestBody } from "./types";
 
 export async function apiRequest(
   this: IExecuteFunctions,
   options: ApiRequestOptions,
-): Promise<any> {
+): Promise<OnOfficeApiResponse> {
   const { resourceType, operation, parameters, resourceId = "" } = options;
 
   const credentials = await this.getCredentials("onOfficeApi");
@@ -62,7 +62,9 @@ export async function apiRequest(
   };
 
   try {
-    return await this.helpers.request(request);
+    const response =
+      (await this.helpers.request(request)) as OnOfficeApiResponse;
+    return response;
   } catch (error) {
     throw new NodeOperationError(
       this.getNode(),

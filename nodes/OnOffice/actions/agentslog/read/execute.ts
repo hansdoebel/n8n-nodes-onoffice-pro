@@ -1,8 +1,4 @@
-import {
-  IDataObject,
-  IExecuteFunctions,
-  INodeExecutionData,
-} from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   buildParameters,
@@ -13,6 +9,13 @@ import {
   throwValidationError,
 } from "../../../utils/errorHandling";
 import { AgentslogParameters } from "../../../utils/types";
+import {
+  ensureObject,
+  extractNumberOrUndefined,
+  extractObject,
+  extractStringArray,
+} from "../../../utils/parameterExtraction";
+import { extractResponseData } from "../../../utils/responseHandler";
 
 export async function readAgentslog(
   this: IExecuteFunctions,
@@ -23,55 +26,68 @@ export async function readAgentslog(
       data: [],
     };
 
-    // Selected fields (Parameters)
-    const fieldSelections = this.getNodeParameter(
+    const fieldSelections = extractStringArray(
+      this,
       "parameters",
       itemIndex,
       [],
-    ) as string[];
+    );
     if (fieldSelections.length > 0) {
       parameters.data = fieldSelections;
     }
 
-    // Additional Fields collection
-    const additionalFields = this.getNodeParameter(
+    const additionalFields = extractObject(
+      this,
       "additionalFields",
       itemIndex,
       {},
-    ) as IDataObject;
+    );
 
-    // Address ID (comma-separated string → array)
-    const addressIdInput = (additionalFields.addressid ?? "") as string;
-    if (addressIdInput) {
+    const addressIdInput = ensureObject(additionalFields).addressid ?? "";
+    if (typeof addressIdInput === "string" && addressIdInput) {
       parameters.addressid = parseCommaSeparated(addressIdInput);
     }
 
-    // Estate ID (comma-separated string → array)
-    const estateIdInput = (additionalFields.estateid ?? "") as string;
-    if (estateIdInput) {
+    const estateIdInput = ensureObject(additionalFields).estateid ?? "";
+    if (typeof estateIdInput === "string" && estateIdInput) {
       parameters.estateid = parseCommaSeparated(estateIdInput);
     }
 
-    // Project ID
-    if (additionalFields.projectid !== undefined) {
-      parameters.projectid = additionalFields.projectid as number;
+    const projectId = extractNumberOrUndefined(
+      this,
+      "additionalFields.projectid",
+      itemIndex,
+    );
+    if (projectId !== undefined) {
+      parameters.projectid = projectId;
     }
 
-    // Build filter object from Filter Rules and/or raw JSON Filter
-    let computedFilter: IDataObject | undefined;
+    let computedFilter = undefined;
 
-    // 1) Filter Rules (fixedCollection)
-    const filterRules = (additionalFields.filterRules ?? {}) as IDataObject;
+    const filterRules = ensureObject(additionalFields).filterRules ?? {};
 
-    if (filterRules && filterRules.rule) {
-      const rulesArray = Array.isArray(filterRules.rule)
-        ? (filterRules.rule as IDataObject[])
-        : [filterRules.rule as IDataObject];
+    if (
+      filterRules && typeof filterRules === "object" && "rule" in filterRules
+    ) {
+      const ruleValue = (filterRules as Record<string, unknown>).rule;
+      const rulesArray = Array.isArray(ruleValue)
+        ? (ruleValue as Array<
+          { field?: string; operator?: string; value?: string }
+        >)
+        : [
+          ruleValue as {
+            field?: string;
+            operator?: string;
+            value?: string;
+          },
+        ];
 
       for (const rule of rulesArray) {
-        const field = rule.field as string;
-        const operator = rule.operator as string;
-        const value = (rule.value as string) ?? "";
+        const field = typeof rule.field === "string" ? rule.field : undefined;
+        const operator = typeof rule.operator === "string"
+          ? rule.operator
+          : undefined;
+        const value = typeof rule.value === "string" ? rule.value : "";
 
         if (!field || !operator || value === "") continue;
 
@@ -82,9 +98,8 @@ export async function readAgentslog(
           (computedFilter as any)[field] = [];
         }
 
-        let val: any = value;
+        let val: string | string[] = value;
 
-        // For IN/BETWEEN we allow comma-separated values
         if (operator === "IN" || operator === "BETWEEN") {
           val = value
             .split(",")
@@ -92,32 +107,36 @@ export async function readAgentslog(
             .filter(Boolean);
         }
 
-        (computedFilter[field] as any[]).push({
+        if (!Array.isArray(computedFilter[field])) {
+          (computedFilter as any)[field] = [];
+        }
+        const fieldArray = (computedFilter as any)[field] as Array<{
+          op: string;
+          val: unknown;
+        }>;
+        fieldArray.push({
           op: operator,
           val,
         });
       }
     }
 
-    // 2) Raw JSON Filter (fallback / advanced)
-    if (!computedFilter && additionalFields.filter) {
-      if (
-        typeof additionalFields.filter === "string" &&
-        additionalFields.filter !== ""
-      ) {
-        try {
-          computedFilter = JSON.parse(
-            additionalFields.filter as string,
-          ) as IDataObject;
-        } catch (error: any) {
-          throwValidationError(
-            this,
-            "Filter must be valid JSON",
-            itemIndex,
-          );
+    if (!computedFilter) {
+      const filterValue = ensureObject(additionalFields).filter;
+      if (filterValue) {
+        if (typeof filterValue === "string" && filterValue !== "") {
+          try {
+            computedFilter = JSON.parse(filterValue);
+          } catch {
+            throwValidationError(
+              this,
+              "Filter must be valid JSON",
+              itemIndex,
+            );
+          }
+        } else if (typeof filterValue === "object") {
+          computedFilter = filterValue;
         }
-      } else if (typeof additionalFields.filter === "object") {
-        computedFilter = additionalFields.filter as IDataObject;
       }
     }
 
@@ -125,7 +144,6 @@ export async function readAgentslog(
       parameters.filter = computedFilter;
     }
 
-    // Add common pagination/sorting fields and agentslog-specific flags
     const agentslogFields = [
       "listlimit",
       "listoffset",
@@ -137,12 +155,13 @@ export async function readAgentslog(
     const commonFields = buildParameters({}, additionalFields, agentslogFields);
     parameters = { ...parameters, ...commonFields };
 
-    const responseData = await apiRequest.call(this, {
+    const response = await apiRequest.call(this, {
       resourceType: "agentslog",
       operation: "read",
       parameters,
     });
 
+    const responseData = extractResponseData(response);
     return this.helpers.returnJsonArray(responseData);
   } catch (error: any) {
     handleExecutionError(this, error, {

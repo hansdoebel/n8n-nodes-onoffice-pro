@@ -5,6 +5,36 @@ export interface ApiCredentials {
   token: string;
 }
 
+export interface ApiAction {
+  actionid: string;
+  resourcetype: string;
+  identifier: string;
+  timestamp: number;
+  hmac: string;
+  hmac_version: number;
+  resourceid: string;
+  parameters: IDataObject;
+}
+
+export interface ApiResponseAction {
+  status: "ok" | "error";
+  statuscode: number;
+  data?: IDataObject[];
+  errors?: Array<{
+    code: string;
+    message: string;
+  }>;
+}
+
+export interface OnOfficeApiResponse {
+  status: "ok" | "error";
+  response?: {
+    results: ApiResponseAction[];
+  };
+  errors?: string[];
+  message?: string;
+}
+
 export interface RequestBody {
   actionid: string;
   resourcetype: string;
