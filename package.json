@@ -1,21 +1,32 @@
 {
 	"name": "n8n-nodes-onoffice",
-	"version": "0.0.7",
+	"version": "0.1.1",
 	"description": "OnOffice custom node for n8n",
 	"keywords": [
 		"n8n-community-node-package",
 		"n8n",
-		"onOffice"
+		"n8n-node",
+		"onOffice",
+		"onoffice-api",
+		"real-estate",
+		"crm",
+		"workflow-automation",
+		"api-integration",
+		"address-management",
+		"estate-management"
 	],
 	"license": "MIT",
-	"homepage": "https://n8n.io",
+	"homepage": "https://github.com/hansdoebel/n8n-nodes-onoffice-pro#readme",
 	"author": {
 		"name": "Hans Doebel",
 		"email": "dev@hansdoebel.de"
 	},
 	"repository": {
 		"type": "git",
-		"url": "github.com:hansdoebel/n8n-nodes-onoffice-pnpm.git"
+		"url": "https://github.com/hansdoebel/n8n-nodes-onoffice-pro.git"
+	},
+	"bugs": {
+		"url": "https://github.com/hansdoebel/n8n-nodes-onoffice-pro/issues"
 	},
 	"engines": {
 		"node": ">=18.10",
@@ -30,11 +41,18 @@
 		"format": "prettier nodes credentials --write",
 		"lint": "eslint nodes credentials package.json",
 		"lintfix": "eslint nodes credentials package.json --fix",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:coverage": "jest --coverage",
 		"prepublishOnly": "pnpm build && pnpm lint -c .eslintrc.prepublish.js nodes credentials package.json"
 	},
 	"files": [
 		"dist"
 	],
+	"funding": {
+		"type": "buymeacoffee",
+		"url": "https://buymeacoffee.com/hansdoebel"
+	},
 	"n8n": {
 		"n8nNodesApiVersion": 1,
 		"credentials": [
@@ -45,12 +63,15 @@
 		]
 	},
 	"devDependencies": {
+		"@types/jest": "^30.0.0",
 		"@types/node": "^22.19.1",
 		"@typescript-eslint/parser": "^7.18.0",
 		"eslint": "^8.57.1",
 		"eslint-plugin-n8n-nodes-base": "^1.16.4",
 		"gulp": "^4.0.2",
+		"jest": "^30.2.0",
 		"prettier": "^3.7.4",
+		"ts-jest": "^29.4.6",
 		"typescript": "^5.9.3"
 	},
 	"peerDependencies": {
