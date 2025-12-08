@@ -16,18 +16,23 @@ export interface ApiAction {
   parameters: IDataObject;
 }
 
+export interface ApiResponseStatus {
+  errorcode: number;
+  message: string;
+}
+
 export interface ApiResponseAction {
-  status: "ok" | "error";
-  statuscode: number;
-  data?: IDataObject[];
-  errors?: Array<{
-    code: string;
-    message: string;
-  }>;
+  actionid: string;
+  resourceid: string;
+  resourcetype: string;
+  cacheable: boolean;
+  identifier: string;
+  data?: IDataObject | IDataObject[];
+  status: ApiResponseStatus;
 }
 
 export interface OnOfficeApiResponse {
-  status: "ok" | "error";
+  status: ApiResponseStatus;
   response?: {
     results: ApiResponseAction[];
   };
@@ -154,41 +159,41 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
     {
       name: "Buyer",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:buyer",
-      description: 'Estates are parentIds, buyers are childIds',
+      description: "Estates are parentIds, buyers are childIds",
     },
     {
       name: "Tenant/Renter",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:renter",
-      description: 'Estates are parentIds, tenants are childIds',
+      description: "Estates are parentIds, tenants are childIds",
     },
     {
       name: "Owner",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:owner",
-      description: 'Estates are parentIds, owners are childIds',
+      description: "Estates are parentIds, owners are childIds",
     },
     {
       name: "Interested/Prospective Buyer",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:interested",
-      description: 'Estates are parentIds, prospective buyers are childIds',
+      description: "Estates are parentIds, prospective buyers are childIds",
     },
     {
       name: "Contact Person (Brokers)",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:contactPerson",
-      description: 'Estates are parentIds, brokers are childIds',
+      description: "Estates are parentIds, brokers are childIds",
     },
     {
       name: "All Contact Persons",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:contactPersonAll",
-      description: 'Estates are parentIds, addresses are childIds',
+      description: "Estates are parentIds, addresses are childIds",
     },
     {
       name: "Matching",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:address:matching",
-      description: 'Estate/address matching (estate = parent, address = child)',
+      description: "Estate/address matching (estate = parent, address = child)",
     },
   ],
   "Estate & Estate Unit": [
@@ -210,7 +215,7 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
       name: "User Assignment",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:user:assignment",
-      description: 'Estate-user-assignments (estate = parent, user = child)',
+      description: "Estate-user-assignments (estate = parent, user = child)",
     },
   ],
   "Estate & File": [
@@ -257,28 +262,29 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
     {
       name: "Estate Mail",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:estate:mail",
-      description: 'Estate-mail (estate = parent, mail = child)',
+      description: "Estate-mail (estate = parent, mail = child)",
     },
   ],
   "Estate Tracking": [
     {
       name: "Estate Tracking",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:estateTracking:estate",
-      description: 'EstateTracking/estate (estateTracking = parent, estate = child)',
+      description:
+        "EstateTracking/estate (estateTracking = parent, estate = child)",
     },
   ],
   "Billing": [
     {
       name: "Billing Estate",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:billing:estate",
-      description: 'Billing-estate (billing = parent, estate = child)',
+      description: "Billing-estate (billing = parent, estate = child)",
     },
   ],
   "Job": [
     {
       name: "Job Estate",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:job:estate",
-      description: 'Job-estate (job = parent, estate = child)',
+      description: "Job-estate (job = parent, estate = child)",
     },
   ],
   "Address Relations": [
@@ -329,7 +335,8 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
       name: "Search Criteria",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:address:searchcriteria",
-      description: 'Searchcriteria for address (address = parent, searchcriteria = child)',
+      description:
+        "Searchcriteria for address (address = parent, searchcriteria = child)",
     },
     {
       name: "Offer/Angebot",
@@ -353,13 +360,14 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
       name: "Strange Name Relation",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:address:user:strangeNameRelation",
-      description: 'User for address, related by "Name" and "Vorname" (address = parent, user = child)',
+      description:
+        'User for address, related by "Name" and "Vorname" (address = parent, user = child)',
     },
     {
       name: "Matching",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:address:estate:matching",
-      description: 'Immo-matching entry (address = parent, estate = child)',
+      description: "Immo-matching entry (address = parent, estate = child)",
     },
     {
       name: "Contact Address",
@@ -371,29 +379,31 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
     {
       name: "User Sync",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:address:user:sync",
-      description: 'Address-user with Outlook sync (address = parent, user = child)',
+      description:
+        "Address-user with Outlook sync (address = parent, user = child)",
     },
     {
       name: "Mail",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:address:mail",
-      description: 'Address-mail (address = parent, mail = child)',
+      description: "Address-mail (address = parent, mail = child)",
     },
   ],
   "User Relations": [
     {
       name: "Address Birthday",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:user:address:birthday",
-      description: 'User-address-birthday (user = parent, address = child)',
+      description: "User-address-birthday (user = parent, address = child)",
     },
     {
       name: "Address",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:user:address",
-      description: 'User-address (user = parent, address = child)',
+      description: "User-address (user = parent, address = child)",
     },
     {
       name: "Messenger User",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:user:messengerUser:is",
-      description: 'User-messenger user (user = parent, messenger user = child). Read only.',
+      description:
+        "User-messenger user (user = parent, messenger user = child). Read only.",
     },
   ],
   "Calendar Relations": [
@@ -413,7 +423,7 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
       name: "Calendar File Attachment",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:calendar:file:attachment",
-      description: 'Calendar-attachments (calendar = parent, file = child)',
+      description: "Calendar-attachments (calendar = parent, file = child)",
     },
   ],
   "Agents Log Relations": [
@@ -421,83 +431,88 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
       name: "Agents Log File Attachment",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:agentsLog:file:attachment",
-      description: 'Agents-log-attachments (agents log = parent, file = child)',
+      description: "Agents-log-attachments (agents log = parent, file = child)",
     },
     {
       name: "Agents Log Address",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:agentsLog:address",
-      description: 'Agents-log-address (agents log = parent, address = child)',
+      description: "Agents-log-address (agents log = parent, address = child)",
     },
     {
       name: "Agents Log Estate",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:agentsLog:estate",
-      description: 'Agents-log-estate (agents log = parent, estate = child)',
+      description: "Agents-log-estate (agents log = parent, estate = child)",
     },
     {
       name: "Agents Log Mail Address",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:agentsLogMail:address",
-      description: 'Agents-log-address (agents log = parent, address = child)',
+      description: "Agents-log-address (agents log = parent, address = child)",
     },
     {
       name: "Agents Log Mail Estate",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:agentsLogMail:estate",
-      description: 'Agents-log-estate (agents log = parent, estate = child)',
+      description: "Agents-log-estate (agents log = parent, estate = child)",
     },
     {
       name: "Agents Log Attachment Download",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:agentsLog:attachment:download",
-      description: 'AgentsLog-attachments-download (agentsLogId = parent, attachmentid = child)',
+      description:
+        "AgentsLog-attachments-download (agentsLogId = parent, attachmentid = child)",
     },
   ],
   "Project Relations": [
     {
       name: "Project Task Customer",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:project:task:customer",
-      description: 'Project-task relation in customerDb (project = parent, task = child)',
+      description:
+        "Project-task relation in customerDb (project = parent, task = child)",
     },
     {
       name: "Project Agents Log",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:project:agentslog",
-      description: 'Project-agentslog relation (project = parent, agentslog = child)',
+      description:
+        "Project-agentslog relation (project = parent, agentslog = child)",
     },
     {
       name: "Project Calendar",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:project:calendar",
-      description: 'Project-calendar relation (project = parent, calendar = child)',
+      description:
+        "Project-calendar relation (project = parent, calendar = child)",
     },
     {
       name: "Project Address",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:project:address",
-      description: 'Project-address relation (project = parent, address = child)',
+      description:
+        "Project-address relation (project = parent, address = child)",
     },
     {
       name: "Project Estate",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:project:estate",
-      description: 'Project-estate relation (project = parent, estate = child)',
+      description: "Project-estate relation (project = parent, estate = child)",
     },
     {
       name: "Project File Attachment",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:project:file:attachment",
-      description: 'Project-attachments (project = parent, file = child)',
+      description: "Project-attachments (project = parent, file = child)",
     },
   ],
   "Task Relations": [
     {
       name: "Task Address",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:task:address",
-      description: 'Task-address (task = parent, address = child)',
+      description: "Task-address (task = parent, address = child)",
     },
     {
       name: "Task Estate",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:task:estate",
-      description: 'Task-estate (task = parent, estate = child)',
+      description: "Task-estate (task = parent, estate = child)",
     },
     {
       name: "Task File Attachment",
       value: "urn:onoffice-de-ns:smart:2.5:relationTypes:task:file:attachment",
-      description: 'Task-attachments (task = parent, file = child)',
+      description: "Task-attachments (task = parent, file = child)",
     },
   ],
   "Complex Relations": [
@@ -513,7 +528,7 @@ export const RELATION_TYPES: Record<string, RelationType[]> = {
       name: "Customer Address Contact",
       value:
         "urn:onoffice-de-ns:smart:2.5:relationTypes:customer:address:contact",
-      description: 'Contact for customer (customer = parent, address = child)',
+      description: "Contact for customer (customer = parent, address = child)",
     },
   ],
   "Template Management Relations": [
