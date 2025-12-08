@@ -2,10 +2,13 @@ import {
   IDataObject,
   IExecuteFunctions,
   INodeExecutionData,
-  NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
+import {
+  handleExecutionError,
+  throwValidationError,
+} from "../../../utils/errorHandling";
 
 export async function getRelation(
   this: IExecuteFunctions,
@@ -42,18 +45,18 @@ export async function getRelation(
     }
 
     if (parentids.length === 0 && childids.length === 0) {
-      throw new NodeOperationError(
-        this.getNode(),
-        "Please provide either Parent IDs or Child IDs.",
-        { itemIndex },
+      throwValidationError(
+        this,
+        "Please provide either Parent IDs or Child IDs",
+        itemIndex,
       );
     }
 
     if (parentids.length > 0 && childids.length > 0) {
-      throw new NodeOperationError(
-        this.getNode(),
-        "Please provide either Parent IDs OR Child IDs, not both.",
-        { itemIndex },
+      throwValidationError(
+        this,
+        "Please provide either Parent IDs OR Child IDs, not both",
+        itemIndex,
       );
     }
 
@@ -65,10 +68,10 @@ export async function getRelation(
 
     return this.helpers.returnJsonArray(responseData as IDataObject[]);
   } catch (error: any) {
-    throw new NodeOperationError(
-      this.getNode(),
-      `Error calling relation API: ${error.message ?? error}`,
-      { itemIndex },
-    );
+    handleExecutionError(this, error, {
+      resource: "relation",
+      operation: "get",
+      itemIndex,
+    });
   }
 }

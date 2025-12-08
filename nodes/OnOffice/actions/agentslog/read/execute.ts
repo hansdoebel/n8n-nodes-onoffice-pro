@@ -2,13 +2,16 @@ import {
   IDataObject,
   IExecuteFunctions,
   INodeExecutionData,
-  NodeOperationError,
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   buildParameters,
   parseCommaSeparated,
 } from "../../../utils/parameterBuilder";
+import {
+  handleExecutionError,
+  throwValidationError,
+} from "../../../utils/errorHandling";
 
 export async function readAgentslog(
   this: IExecuteFunctions,
@@ -106,10 +109,10 @@ export async function readAgentslog(
             additionalFields.filter as string,
           ) as IDataObject;
         } catch (error: any) {
-          throw new NodeOperationError(
-            this.getNode(),
+          throwValidationError(
+            this,
             "Filter must be valid JSON",
-            { itemIndex },
+            itemIndex,
           );
         }
       } else if (typeof additionalFields.filter === "object") {
@@ -141,9 +144,10 @@ export async function readAgentslog(
 
     return this.helpers.returnJsonArray(responseData);
   } catch (error: any) {
-    throw new NodeOperationError(
-      this.getNode(),
-      `Error calling onOffice API: ${error.message}`,
-    );
+    handleExecutionError(this, error, {
+      resource: "agentslog",
+      operation: "read",
+      itemIndex,
+    });
   }
 }
