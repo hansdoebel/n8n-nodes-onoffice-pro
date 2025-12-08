@@ -175,7 +175,7 @@ pnpm format
 
 ## 📜 Version History
 
-- `0.1.1` – Enhanced relation operations with comprehensive error handling, 60+ relation types, 107 unit tests
+- `0.0.8` – Enhanced relation operations with comprehensive error handling, 60+ relation types, 107 unit tests
 - `0.0.6` – Fixed filter rules for readAgentslog operation
 - `0.0.5` – Added settings, templates, relations
 - `0.0.4` – Appointments (read, create)
