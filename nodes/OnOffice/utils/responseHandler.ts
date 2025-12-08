@@ -8,6 +8,8 @@ export function extractResponseData(
     return [];
   }
 
+  checkForApiErrors(response);
+
   if (response.response?.results && Array.isArray(response.response.results)) {
     const results = response.response.results;
 
@@ -33,28 +35,49 @@ export function extractResponseData(
   return [];
 }
 
+function checkForApiErrors(response: OnOfficeApiResponse): void {
+  if (!response) {
+    return;
+  }
+
+  if (response.status?.errorcode && response.status.errorcode !== 0) {
+    const errorMessage = response.status.message || "Unknown API error";
+    throw new Error(
+      `OnOffice API Error (${response.status.errorcode}): ${errorMessage}`,
+    );
+  }
+
+  if (response.response?.results && Array.isArray(response.response.results)) {
+    for (const result of response.response.results) {
+      if (result.status?.errorcode && result.status.errorcode !== 0) {
+        const errorMessage = result.status.message ||
+          "Unknown error in API result";
+        throw new Error(
+          `OnOffice API Error (${result.status.errorcode}): ${errorMessage}`,
+        );
+      }
+    }
+  }
+}
+
 export function isApiResponseSuccess(response: OnOfficeApiResponse): boolean {
-  return response.status === "ok" && !response.errors;
+  return !response.status?.errorcode || response.status.errorcode === 0;
 }
 
 export function getApiResponseError(
   response: OnOfficeApiResponse,
 ): string | null {
+  if (response.status?.errorcode && response.status.errorcode !== 0) {
+    return response.status.message || "API request failed";
+  }
+
   if (response.errors && Array.isArray(response.errors)) {
     return response.errors.join(", ");
   }
+
   if (response.message) {
     return response.message;
   }
-  if (response.response?.results) {
-    const errors = response.response.results
-      .filter((r) => r.status === "error")
-      .map((r) => r.errors?.map((e) => e.message).join(", "))
-      .filter((msg) => msg)
-      .join("; ");
-    if (errors) {
-      return errors;
-    }
-  }
+
   return null;
 }
