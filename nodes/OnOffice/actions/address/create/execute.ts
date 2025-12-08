@@ -9,13 +9,14 @@ import {
   parseCommaSeparated,
 } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
+import { AddressParameters } from "../../../utils/types";
 
 export async function createAddress(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    let parameters: IDataObject = {
+    let parameters: AddressParameters = {
       recordids: [],
       data: [],
     };

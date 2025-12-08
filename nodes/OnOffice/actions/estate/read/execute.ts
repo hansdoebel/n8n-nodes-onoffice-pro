@@ -9,13 +9,14 @@ import {
   COMMON_FIELDS,
 } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
+import { EstateParameters } from "../../../utils/types";
 
 export async function readEstate(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    let parameters: IDataObject = {
+    let parameters: EstateParameters = {
       data: [],
     };
 

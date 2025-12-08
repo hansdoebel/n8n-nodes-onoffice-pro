@@ -6,6 +6,7 @@ import {
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
+import { AppointmentCreateParameters } from "../../../utils/types";
 
 export async function createAppointment(
   this: IExecuteFunctions,
@@ -17,7 +18,7 @@ export async function createAppointment(
       itemIndex,
       false,
     ) as boolean;
-    let parameters: IDataObject = {};
+    let parameters: AppointmentCreateParameters = {};
 
     if (useJsonParameters) {
       const jsonParameters = this.getNodeParameter(

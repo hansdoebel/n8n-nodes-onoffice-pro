@@ -1,5 +1,4 @@
 import {
-  GenericValue,
   IDataObject,
   IExecuteFunctions,
   INodeExecutionData,
@@ -7,24 +6,14 @@ import {
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
-
-interface TemplateParams {
-  category?: string;
-  mailtemplateids?: number[];
-  list?: boolean | GenericValue;
-  type: string | GenericValue;
-}
-
-function convertToIDataObject(params: TemplateParams): IDataObject {
-  return { ...params };
-}
+import { TemplateParameters } from "../../../utils/types";
 
 export async function getTemplates(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    const parameters: TemplateParams = {
+    const parameters: TemplateParameters = {
       type: this.getNodeParameter("type", itemIndex, "") as string,
     };
 
@@ -38,14 +27,14 @@ export async function getTemplates(
       if (key === "mailtemplateids" && typeof value === "string") {
         parameters.mailtemplateids = parseCommaSeparatedNumbers(value);
       } else {
-        parameters[key as keyof TemplateParams] = value as never;
+        (parameters as any)[key] = value;
       }
     }
 
     const responseData = await apiRequest.call(this, {
       resourceType: "templates",
       operation: "get",
-      parameters: convertToIDataObject(parameters),
+      parameters: parameters as IDataObject,
     });
 
     return this.helpers.returnJsonArray(responseData);

@@ -10,37 +10,14 @@ import {
   throwInvalidParameterError,
   throwValidationError,
 } from "../../../utils/errorHandling";
-
-interface Parameters {
-  emailidentity: string;
-  templateid?: number;
-  estateids?: string[];
-  receiver: string[];
-  pdfexposeidentifiers?: string[];
-  useHtml?: boolean;
-  attachLinkedMailToHtmlMessage?: boolean;
-  forwarded?: boolean;
-  replied?: boolean;
-  mergeexposeintopdfletter?: boolean;
-  displayName?: string;
-  bcc?: string[];
-  cc?: string[];
-  subject?: string;
-  onlineattachmentids?: string[];
-  replyto?: string;
-  body?: string;
-  documentattributes?: string[];
-  pdfformids?: string[];
-  pdfletterids?: string[];
-  messageid?: string;
-}
+import { EmailParameters } from "../../../utils/types";
 
 export async function sendMail(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    let parameters: Parameters = {
+    let parameters: EmailParameters = {
       emailidentity: "",
       receiver: [],
     };

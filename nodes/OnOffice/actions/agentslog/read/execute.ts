@@ -12,13 +12,14 @@ import {
   handleExecutionError,
   throwValidationError,
 } from "../../../utils/errorHandling";
+import { AgentslogParameters } from "../../../utils/types";
 
 export async function readAgentslog(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    let parameters: IDataObject = {
+    let parameters: AgentslogParameters = {
       data: [],
     };
 
