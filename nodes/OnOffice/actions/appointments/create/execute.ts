@@ -7,95 +7,124 @@ import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
 import { AppointmentCreateParameters } from "../../../utils/types";
+import {
+  extractBoolean,
+  extractNumber,
+  extractString,
+} from "../../../utils/parameterExtraction";
+import { extractResponseData } from "../../../utils/responseHandler";
 
 export async function createAppointment(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    const useJsonParameters = this.getNodeParameter(
+    const useJsonParameters = extractBoolean(
+      this,
       "jsonParameters",
       itemIndex,
       false,
-    ) as boolean;
+    );
     let parameters: AppointmentCreateParameters = {};
 
     if (useJsonParameters) {
-      const jsonParameters = this.getNodeParameter(
+      const jsonParameters = extractString(
+        this,
         "parameters",
         itemIndex,
         "",
-      ) as string;
+      );
       parameters = JSON.parse(jsonParameters);
     } else {
+      const startDate = extractString(
+        this,
+        "data.datestart",
+        itemIndex,
+        "",
+      );
+      const endDate = extractString(
+        this,
+        "data.dateend",
+        itemIndex,
+        "",
+      );
+
       const dataParameters: IDataObject = {
-        start_dt: this.getNodeParameter("data.datestart", itemIndex) as string,
-        end_dt: this.getNodeParameter("data.dateend", itemIndex) as string,
+        start_dt: startDate,
+        end_dt: endDate,
       };
 
-      const description = this.getNodeParameter(
+      const description = extractString(
+        this,
         "data.description",
         itemIndex,
-      ) as string;
+        "",
+      );
       if (description) {
         dataParameters.description = description;
       }
 
-      const art = this.getNodeParameter("data.art", itemIndex) as string;
+      const art = extractString(this, "data.art", itemIndex, "");
       if (art) {
         dataParameters.art = art;
       }
 
-      const ganztags = this.getNodeParameter(
+      const ganztags = extractBoolean(
+        this,
         "data.ganztags",
         itemIndex,
         false,
-      ) as boolean;
-      if (ganztags !== undefined) {
+      );
+      if (ganztags !== false) {
         dataParameters.ganztags = ganztags;
       }
 
-      const note = this.getNodeParameter("data.note", itemIndex) as string;
+      const note = extractString(this, "data.note", itemIndex, "");
       if (note) {
         dataParameters.note = note;
       }
 
-      const privateAppointment = this.getNodeParameter(
+      const privateAppointment = extractBoolean(
+        this,
         "data.private",
         itemIndex,
         false,
-      ) as boolean;
-      if (privateAppointment !== undefined) {
+      );
+      if (privateAppointment !== false) {
         dataParameters.private = privateAppointment;
       }
 
-      const relatedAddressIdsParam = this.getNodeParameter(
+      const relatedAddressIdsParam = extractString(
+        this,
         "additionalFields.relatedAddressIds",
         itemIndex,
         "",
-      ) as string;
+      );
       const relatedAddressIds = parseCommaSeparatedNumbers(
         relatedAddressIdsParam,
       );
 
-      const relatedEstateId = this.getNodeParameter(
+      const relatedEstateId = extractNumber(
+        this,
         "additionalFields.relatedEstateId",
         itemIndex,
-      ) as number;
+        0,
+      );
 
       parameters = {
         data: dataParameters,
         relatedAddressIds,
-        relatedEstateId,
+        relatedEstateId: relatedEstateId || undefined,
       };
     }
 
-    const responseData = await apiRequest.call(this, {
+    const response = await apiRequest.call(this, {
       resourceType: "calendar",
       operation: "create",
       parameters,
     });
 
+    const responseData = extractResponseData(response);
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
     handleExecutionError(this, error, {

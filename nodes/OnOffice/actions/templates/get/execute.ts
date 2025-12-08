@@ -1,42 +1,46 @@
-import {
-  IDataObject,
-  IExecuteFunctions,
-  INodeExecutionData,
-} from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
 import { TemplateParameters } from "../../../utils/types";
+import {
+  extractObject,
+  extractString,
+} from "../../../utils/parameterExtraction";
+import { extractResponseData } from "../../../utils/responseHandler";
 
 export async function getTemplates(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
+    const type = extractString(this, "type", itemIndex, "");
     const parameters: TemplateParameters = {
-      type: this.getNodeParameter("type", itemIndex, "") as string,
+      type,
     };
 
-    const additionalFields = this.getNodeParameter(
+    const additionalFields = extractObject(
+      this,
       "additionalFields",
       itemIndex,
       {},
-    ) as IDataObject;
+    );
 
     for (const [key, value] of Object.entries(additionalFields)) {
       if (key === "mailtemplateids" && typeof value === "string") {
         parameters.mailtemplateids = parseCommaSeparatedNumbers(value);
-      } else {
-        (parameters as any)[key] = value;
+      } else if (key !== "type") {
+        (parameters as Record<string, unknown>)[key] = value;
       }
     }
 
-    const responseData = await apiRequest.call(this, {
+    const response = await apiRequest.call(this, {
       resourceType: "templates",
       operation: "get",
-      parameters: parameters as IDataObject,
+      parameters: parameters,
     });
 
+    const responseData = extractResponseData(response);
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
     handleExecutionError(this, error, {

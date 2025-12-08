@@ -1,16 +1,19 @@
-import {
-  IDataObject,
-  IExecuteFunctions,
-  INodeExecutionData,
-} from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparated } from "../../../utils/parameterBuilder";
 import {
   handleExecutionError,
-  throwInvalidParameterError,
   throwValidationError,
 } from "../../../utils/errorHandling";
 import { EmailParameters } from "../../../utils/types";
+import {
+  ensureArray,
+  extractBoolean,
+  extractNumber,
+  extractObject,
+  extractString,
+} from "../../../utils/parameterExtraction";
+import { extractResponseData } from "../../../utils/responseHandler";
 
 export async function sendMail(
   this: IExecuteFunctions,
@@ -22,16 +25,18 @@ export async function sendMail(
       receiver: [],
     };
 
-    const emailIdentity = this.getNodeParameter(
+    const emailIdentity = extractString(
+      this,
       "emailidentity",
       itemIndex,
       "",
-    ) as string;
-    const receiverInput = this.getNodeParameter(
+    );
+    const receiverInput = extractString(
+      this,
       "receiver",
       itemIndex,
       "",
-    ) as string;
+    );
     const receiver = parseCommaSeparated(receiverInput);
 
     if (receiver.length === 0) {
@@ -45,113 +50,172 @@ export async function sendMail(
     parameters.emailidentity = emailIdentity;
     parameters.receiver = receiver;
 
-    const additionalFields = this.getNodeParameter(
+    const additionalFields = extractObject(
+      this,
       "additionalFields",
       itemIndex,
       {},
-    ) as IDataObject;
+    );
 
-    if (additionalFields) {
-      if (additionalFields.estateids) {
-        parameters.estateids = parseCommaSeparated(
-          additionalFields.estateids as string,
-        );
-      }
-      if (additionalFields.templateid) {
-        parameters.templateid = parseInt(
-          additionalFields.templateid as string,
-          10,
-        );
-        if (isNaN(parameters.templateid)) {
-          throwInvalidParameterError(
-            this,
-            "templateid",
-            "must be a valid integer",
-            itemIndex,
-          );
-        }
-      }
-      if (additionalFields.pdfexposeidentifiers) {
-        parameters.pdfexposeidentifiers = parseCommaSeparated(
-          additionalFields.pdfexposeidentifiers as string,
-        );
-      }
-      if (additionalFields.onlineattachmentids) {
-        parameters.onlineattachmentids = parseCommaSeparated(
-          additionalFields.onlineattachmentids as string,
-        );
-      }
-      if (additionalFields.documentattributes) {
-        parameters.documentattributes = parseCommaSeparated(
-          additionalFields.documentattributes as string,
-        );
-      }
-      if (additionalFields.pdfformids) {
-        parameters.pdfformids = parseCommaSeparated(
-          additionalFields.pdfformids as string,
-        );
-      }
-      if (additionalFields.pdfletterids) {
-        parameters.pdfletterids = parseCommaSeparated(
-          additionalFields.pdfletterids as string,
-        );
-      }
-
-      if (
-        additionalFields.subject && typeof additionalFields.subject === "string"
-      ) {
-        parameters.subject = additionalFields.subject.trim();
-      }
-      if (additionalFields.body && typeof additionalFields.body === "string") {
-        parameters.body = additionalFields.body.trim();
-      }
-      if (
-        additionalFields.messageid &&
-        typeof additionalFields.messageid === "string"
-      ) {
-        parameters.messageid = additionalFields.messageid.trim();
-      }
-      if (
-        additionalFields.displayName &&
-        typeof additionalFields.displayName === "string"
-      ) {
-        parameters.displayName = additionalFields.displayName.trim();
-      }
-      if (additionalFields.bcc && Array.isArray(additionalFields.bcc)) {
-        parameters.bcc = additionalFields.bcc.map((bccEmail) =>
-          bccEmail.trim()
-        );
-      }
-      if (additionalFields.cc && Array.isArray(additionalFields.cc)) {
-        parameters.cc = additionalFields.cc.map((ccEmail) => ccEmail.trim());
-      }
-      if (additionalFields.useHtml !== undefined) {
-        parameters.useHtml = Boolean(additionalFields.useHtml);
-      }
-      if (additionalFields.attachLinkedMailToHtmlMessage !== undefined) {
-        parameters.attachLinkedMailToHtmlMessage = Boolean(
-          additionalFields.attachLinkedMailToHtmlMessage,
-        );
-      }
-      if (additionalFields.forwarded !== undefined) {
-        parameters.forwarded = Boolean(additionalFields.forwarded);
-      }
-      if (additionalFields.replied !== undefined) {
-        parameters.replied = Boolean(additionalFields.replied);
-      }
-      if (additionalFields.mergeexposeintopdfletter !== undefined) {
-        parameters.mergeexposeintopdfletter = Boolean(
-          additionalFields.mergeexposeintopdfletter,
-        );
-      }
+    if (additionalFields.estateids) {
+      parameters.estateids = parseCommaSeparated(
+        extractString(this, "additionalFields.estateids", itemIndex, ""),
+      );
     }
 
-    const responseData = await apiRequest.call(this, {
+    const templateId = extractNumber(
+      this,
+      "additionalFields.templateid",
+      itemIndex,
+      0,
+    );
+    if (templateId) {
+      parameters.templateid = templateId;
+    }
+
+    if (additionalFields.pdfexposeidentifiers) {
+      parameters.pdfexposeidentifiers = parseCommaSeparated(
+        extractString(
+          this,
+          "additionalFields.pdfexposeidentifiers",
+          itemIndex,
+          "",
+        ),
+      );
+    }
+    if (additionalFields.onlineattachmentids) {
+      parameters.onlineattachmentids = parseCommaSeparated(
+        extractString(
+          this,
+          "additionalFields.onlineattachmentids",
+          itemIndex,
+          "",
+        ),
+      );
+    }
+    if (additionalFields.documentattributes) {
+      parameters.documentattributes = parseCommaSeparated(
+        extractString(
+          this,
+          "additionalFields.documentattributes",
+          itemIndex,
+          "",
+        ),
+      );
+    }
+    if (additionalFields.pdfformids) {
+      parameters.pdfformids = parseCommaSeparated(
+        extractString(this, "additionalFields.pdfformids", itemIndex, ""),
+      );
+    }
+    if (additionalFields.pdfletterids) {
+      parameters.pdfletterids = parseCommaSeparated(
+        extractString(this, "additionalFields.pdfletterids", itemIndex, ""),
+      );
+    }
+
+    const subject = extractString(
+      this,
+      "additionalFields.subject",
+      itemIndex,
+      "",
+    );
+    if (subject) {
+      parameters.subject = subject.trim();
+    }
+
+    const body = extractString(
+      this,
+      "additionalFields.body",
+      itemIndex,
+      "",
+    );
+    if (body) {
+      parameters.body = body.trim();
+    }
+
+    const messageid = extractString(
+      this,
+      "additionalFields.messageid",
+      itemIndex,
+      "",
+    );
+    if (messageid) {
+      parameters.messageid = messageid.trim();
+    }
+
+    const displayName = extractString(
+      this,
+      "additionalFields.displayName",
+      itemIndex,
+      "",
+    );
+    if (displayName) {
+      parameters.displayName = displayName.trim();
+    }
+
+    const bcc = ensureArray<unknown>(additionalFields.bcc, []);
+    if (Array.isArray(bcc) && bcc.length > 0) {
+      parameters.bcc = bcc.map((item) =>
+        typeof item === "string" ? item.trim() : String(item).trim()
+      );
+    }
+
+    const cc = ensureArray<unknown>(additionalFields.cc, []);
+    if (Array.isArray(cc) && cc.length > 0) {
+      parameters.cc = cc.map((item) =>
+        typeof item === "string" ? item.trim() : String(item).trim()
+      );
+    }
+
+    if (additionalFields.useHtml !== undefined) {
+      parameters.useHtml = extractBoolean(
+        this,
+        "additionalFields.useHtml",
+        itemIndex,
+        false,
+      );
+    }
+    if (additionalFields.attachLinkedMailToHtmlMessage !== undefined) {
+      parameters.attachLinkedMailToHtmlMessage = extractBoolean(
+        this,
+        "additionalFields.attachLinkedMailToHtmlMessage",
+        itemIndex,
+        false,
+      );
+    }
+    if (additionalFields.forwarded !== undefined) {
+      parameters.forwarded = extractBoolean(
+        this,
+        "additionalFields.forwarded",
+        itemIndex,
+        false,
+      );
+    }
+    if (additionalFields.replied !== undefined) {
+      parameters.replied = extractBoolean(
+        this,
+        "additionalFields.replied",
+        itemIndex,
+        false,
+      );
+    }
+    if (additionalFields.mergeexposeintopdfletter !== undefined) {
+      parameters.mergeexposeintopdfletter = extractBoolean(
+        this,
+        "additionalFields.mergeexposeintopdfletter",
+        itemIndex,
+        false,
+      );
+    }
+
+    const response = await apiRequest.call(this, {
       resourceType: "sendmail",
       operation: "do",
-      parameters: parameters as unknown as IDataObject,
+      parameters: parameters,
     });
 
+    const responseData = extractResponseData(response);
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
     handleExecutionError(this, error, {

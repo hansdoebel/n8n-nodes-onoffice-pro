@@ -1,8 +1,4 @@
-import {
-  IDataObject,
-  IExecuteFunctions,
-  INodeExecutionData,
-} from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   buildParameters,
@@ -10,6 +6,12 @@ import {
 } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
 import { AddressParameters } from "../../../utils/types";
+import {
+  extractObject,
+  extractString,
+  extractStringArray,
+} from "../../../utils/parameterExtraction";
+import { extractResponseData } from "../../../utils/responseHandler";
 
 export async function createAddress(
   this: IExecuteFunctions,
@@ -21,38 +23,42 @@ export async function createAddress(
       data: [],
     };
 
-    const recordIdInput = this.getNodeParameter(
+    const recordIdInput = extractString(
+      this,
       "recordids",
       itemIndex,
       "",
-    ) as string;
+    );
     if (recordIdInput) {
       parameters.recordids = parseCommaSeparated(recordIdInput);
     }
 
-    const fieldSelections = this.getNodeParameter(
+    const fieldSelections = extractStringArray(
+      this,
       "parameters",
       itemIndex,
       [],
-    ) as string[];
+    );
     if (fieldSelections.length > 0) {
       parameters.data = fieldSelections;
     }
 
-    const additionalFields = this.getNodeParameter(
+    const additionalFields = extractObject(
+      this,
       "additionalFields",
       itemIndex,
       {},
-    ) as IDataObject;
+    );
 
     parameters = buildParameters(parameters, additionalFields);
 
-    const responseData = await apiRequest.call(this, {
+    const response = await apiRequest.call(this, {
       resourceType: "address",
       operation: "create",
       parameters,
     });
 
+    const responseData = extractResponseData(response);
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
     handleExecutionError(this, error, {

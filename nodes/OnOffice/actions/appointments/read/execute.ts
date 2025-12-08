@@ -1,66 +1,72 @@
-import {
-  IDataObject,
-  IExecuteFunctions,
-  INodeExecutionData,
-} from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { handleExecutionError } from "../../../utils/errorHandling";
 import { AppointmentReadParameters } from "../../../utils/types";
+import {
+  extractBoolean,
+  extractObject,
+  extractString,
+} from "../../../utils/parameterExtraction";
+import { extractResponseData } from "../../../utils/responseHandler";
 
 export async function readAppointment(
   this: IExecuteFunctions,
   itemIndex: number,
 ): Promise<INodeExecutionData[]> {
   try {
-    const useJsonParameters = this.getNodeParameter(
+    const useJsonParameters = extractBoolean(
+      this,
       "jsonParameters",
       itemIndex,
       false,
-    ) as boolean;
+    );
     let parameters: AppointmentReadParameters = {};
 
     if (useJsonParameters) {
-      const jsonParameters = this.getNodeParameter(
+      const jsonParameters = extractString(
+        this,
         "parameters",
         itemIndex,
         "",
-      ) as string;
+      );
       parameters = JSON.parse(jsonParameters);
     } else {
       const fieldSelections = this.getNodeParameter(
         "parameters",
         itemIndex,
         [],
-      ) as string[];
-      if (fieldSelections.length > 0) {
-        parameters.data = fieldSelections;
+      );
+      if (
+        Array.isArray(fieldSelections) &&
+        fieldSelections.length > 0 &&
+        fieldSelections.every((item) => typeof item === "string")
+      ) {
+        parameters.data = fieldSelections as string[];
       }
     }
 
-    const resourceid = this.getNodeParameter(
-      "resourceid",
-      itemIndex,
-      "",
-    ) as string;
+    const resourceid = extractString(this, "resourceid", itemIndex, "");
 
-    const additionalFields = this.getNodeParameter(
+    const additionalFields = extractObject(
+      this,
       "additionalFields",
       itemIndex,
       {},
-    ) as IDataObject;
+    );
 
-    const finalParameters: IDataObject = {
+    const finalParameters: AppointmentReadParameters = {
       ...parameters,
       ...additionalFields,
     };
 
-    const responseData = await apiRequest.call(this, {
-      resourceType: "calendar",
+    const response = await apiRequest.call(this, {
+      resourceType: "appointments",
       operation: "read",
       parameters: finalParameters,
       resourceId: resourceid,
     });
 
+    const responseData = extractResponseData(response);
     return this.helpers.returnJsonArray(responseData);
   } catch (error) {
     handleExecutionError(this, error, {
