@@ -5,6 +5,7 @@ import {
 } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { handleExecutionError } from "../../../utils/errorHandling";
+import { AppointmentReadParameters } from "../../../utils/types";
 
 export async function readAppointment(
   this: IExecuteFunctions,
@@ -16,7 +17,7 @@ export async function readAppointment(
       itemIndex,
       false,
     ) as boolean;
-    let parameters: IDataObject = {};
+    let parameters: AppointmentReadParameters = {};
 
     if (useJsonParameters) {
       const jsonParameters = this.getNodeParameter(

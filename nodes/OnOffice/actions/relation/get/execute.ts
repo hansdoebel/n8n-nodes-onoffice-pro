@@ -9,6 +9,7 @@ import {
   handleExecutionError,
   throwValidationError,
 } from "../../../utils/errorHandling";
+import { RelationParameters } from "../../../utils/types";
 
 export async function getRelation(
   this: IExecuteFunctions,
@@ -32,7 +33,7 @@ export async function getRelation(
     const parentids: number[] = parseCommaSeparatedNumbers(parentidsString);
     const childids: number[] = parseCommaSeparatedNumbers(childidsString);
 
-    const parameters: IDataObject = {
+    const parameters: RelationParameters = {
       relationtype,
     };
 

@@ -1,5 +1,4 @@
 import {
-  IDataObject,
   IExecuteFunctions,
   IHttpRequestOptions,
   NodeOperationError,
@@ -7,24 +6,7 @@ import {
 import { getActionId } from "./actionIds";
 import { generateHmac } from "./hmac";
 import { API_URL } from "./constants";
-
-interface RequestBody {
-  actionid: string;
-  resourcetype: string;
-  identifier: string;
-  timestamp: number;
-  hmac: string;
-  hmac_version: number;
-  resourceid: string;
-  parameters: IDataObject;
-}
-
-interface ApiRequestOptions {
-  resourceType: string;
-  operation: string;
-  parameters: IDataObject;
-  resourceId?: string;
-}
+import { ApiRequestOptions, RequestBody } from "./types";
 
 export async function apiRequest(
   this: IExecuteFunctions,
