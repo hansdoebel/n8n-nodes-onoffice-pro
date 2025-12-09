@@ -102,8 +102,8 @@ export interface EstateParameters extends BaseOperationParameters {
 
 export interface AgentslogParameters extends IDataObject {
   data?: string[];
-  estateid?: string[];
-  addressid?: string[];
+  estateid?: number[];
+  addressid?: number[];
   projectid?: number;
   filter?: IDataObject;
   listlimit?: number;

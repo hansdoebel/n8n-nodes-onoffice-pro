@@ -1,0 +1,62 @@
+{
+	"status": {
+		"code": 200,
+		"errorcode": 0,
+		"message": "OK"
+	},
+	"response": {
+		"results": [
+			{
+				"actionid": "urn:onoffice-de-ns:smart:2.5:smartml:action:read",
+				"resourceid": "",
+				"resourcetype": "agentslog",
+				"cacheable": true,
+				"identifier": "",
+				"data": {
+					"meta": {
+						"cntabsolute": 3
+					},
+					"records": [
+						{
+							"id": 131751,
+							"type": "agentslog",
+							"elements": {
+								"Objekt_nr": "OBJ123",
+								"Aktionsart": "Download",
+								"Aktionstyp": "Email",
+								"Bemerkung": "Prospect interested in property",
+								"Datum": "2025-12-09 13:52:42"
+							}
+						},
+						{
+							"id": 131749,
+							"type": "agentslog",
+							"elements": {
+								"Objekt_nr": "OBJ456",
+								"Aktionsart": "Download",
+								"Aktionstyp": "Webinar",
+								"Bemerkung": "Client follow-up needed",
+								"Datum": "2025-12-09 13:50:31"
+							}
+						},
+						{
+							"id": 131745,
+							"type": "agentslog",
+							"elements": {
+								"Objekt_nr": "OBJ789",
+								"Aktionsart": "Download",
+								"Aktionstyp": "Phone",
+								"Bemerkung": "Initial contact made",
+								"Datum": "2025-12-08 09:15:22"
+							}
+						}
+					]
+				},
+				"status": {
+					"errorcode": 0,
+					"message": "OK"
+				}
+			}
+		]
+	}
+}

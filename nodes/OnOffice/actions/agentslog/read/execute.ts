@@ -2,7 +2,7 @@ import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   buildParameters,
-  parseCommaSeparated,
+  parseCommaSeparatedNumbers,
 } from "../../../utils/parameterBuilder";
 import {
   handleExecutionError,
@@ -11,7 +11,6 @@ import {
 import { AgentslogParameters } from "../../../utils/types";
 import {
   ensureObject,
-  extractNumberOrUndefined,
   extractObject,
   extractStringArray,
 } from "../../../utils/parameterExtraction";
@@ -45,21 +44,20 @@ export async function readAgentslog(
 
     const addressIdInput = ensureObject(additionalFields).addressid ?? "";
     if (typeof addressIdInput === "string" && addressIdInput) {
-      parameters.addressid = parseCommaSeparated(addressIdInput);
+      parameters.addressid = parseCommaSeparatedNumbers(addressIdInput);
     }
 
     const estateIdInput = ensureObject(additionalFields).estateid ?? "";
     if (typeof estateIdInput === "string" && estateIdInput) {
-      parameters.estateid = parseCommaSeparated(estateIdInput);
+      parameters.estateid = parseCommaSeparatedNumbers(estateIdInput);
     }
 
-    const projectId = extractNumberOrUndefined(
-      this,
-      "additionalFields.projectid",
-      itemIndex,
-    );
-    if (projectId !== undefined) {
-      parameters.projectid = projectId;
+    const projectIdValue = ensureObject(additionalFields).projectid;
+    if (projectIdValue !== undefined && projectIdValue !== null) {
+      const projectId = Number(projectIdValue);
+      if (!isNaN(projectId)) {
+        parameters.projectid = projectId;
+      }
     }
 
     let computedFilter = undefined;
