@@ -14,6 +14,8 @@ import * as appointments from "./actions/appointments";
 import * as email from "./actions/email";
 import * as estate from "./actions/estate";
 import * as relation from "./actions/relation";
+import * as settings from "./actions/settings";
+import * as templates from "./actions/templates";
 
 export class OnOffice implements INodeType {
   description: INodeTypeDescription = {
@@ -83,6 +85,8 @@ export class OnOffice implements INodeType {
       ...email.descriptions,
       ...estate.descriptions,
       ...relation.descriptions,
+      ...settings.descriptions,
+      ...templates.descriptions,
     ],
   };
   async execute(this: IExecuteFunctions) {
