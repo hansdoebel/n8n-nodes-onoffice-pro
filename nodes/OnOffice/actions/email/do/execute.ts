@@ -1,6 +1,6 @@
 import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
-import { parseCommaSeparated } from "../../../utils/parameterBuilder";
+import { parseCommaSeparatedStrings } from "../../../utils/parameterBuilder";
 import {
   handleExecutionError,
   throwValidationError,
@@ -37,7 +37,7 @@ export async function sendMail(
       itemIndex,
       "",
     );
-    const receiver = parseCommaSeparated(receiverInput);
+    const receiver = parseCommaSeparatedStrings(receiverInput);
 
     if (receiver.length === 0) {
       throwValidationError(
@@ -58,7 +58,7 @@ export async function sendMail(
     );
 
     if (additionalFields.estateids) {
-      parameters.estateids = parseCommaSeparated(
+      parameters.estateids = parseCommaSeparatedStrings(
         extractString(this, "additionalFields.estateids", itemIndex, ""),
       );
     }
@@ -74,7 +74,7 @@ export async function sendMail(
     }
 
     if (additionalFields.pdfexposeidentifiers) {
-      parameters.pdfexposeidentifiers = parseCommaSeparated(
+      parameters.pdfexposeidentifiers = parseCommaSeparatedStrings(
         extractString(
           this,
           "additionalFields.pdfexposeidentifiers",
@@ -84,7 +84,7 @@ export async function sendMail(
       );
     }
     if (additionalFields.onlineattachmentids) {
-      parameters.onlineattachmentids = parseCommaSeparated(
+      parameters.onlineattachmentids = parseCommaSeparatedStrings(
         extractString(
           this,
           "additionalFields.onlineattachmentids",
@@ -94,7 +94,7 @@ export async function sendMail(
       );
     }
     if (additionalFields.documentattributes) {
-      parameters.documentattributes = parseCommaSeparated(
+      parameters.documentattributes = parseCommaSeparatedStrings(
         extractString(
           this,
           "additionalFields.documentattributes",
@@ -104,12 +104,12 @@ export async function sendMail(
       );
     }
     if (additionalFields.pdfformids) {
-      parameters.pdfformids = parseCommaSeparated(
+      parameters.pdfformids = parseCommaSeparatedStrings(
         extractString(this, "additionalFields.pdfformids", itemIndex, ""),
       );
     }
     if (additionalFields.pdfletterids) {
-      parameters.pdfletterids = parseCommaSeparated(
+      parameters.pdfletterids = parseCommaSeparatedStrings(
         extractString(this, "additionalFields.pdfletterids", itemIndex, ""),
       );
     }

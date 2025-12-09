@@ -2,7 +2,7 @@ import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   buildParameters,
-  parseCommaSeparated,
+  parseCommaSeparatedStrings,
 } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
 import { AddressParameters } from "../../../utils/types";
@@ -30,7 +30,7 @@ export async function readAddress(
       "",
     );
     if (recordIdInput) {
-      parameters.recordids = parseCommaSeparated(recordIdInput);
+      parameters.recordids = parseCommaSeparatedStrings(recordIdInput);
     }
 
     const fieldSelections = extractStringArray(

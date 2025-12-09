@@ -23,7 +23,7 @@ export function extractDefinedFields(
   return result;
 }
 
-export function parseCommaSeparated(input: string): string[] {
+export function parseCommaSeparatedStrings(input: string): string[] {
   if (!input || typeof input !== "string") {
     return [];
   }

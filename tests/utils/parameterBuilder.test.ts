@@ -1,6 +1,83 @@
-import { parseCommaSeparatedNumbers } from "../../nodes/OnOffice/utils/parameterBuilder";
+import {
+  parseCommaSeparatedNumbers,
+  parseCommaSeparatedStrings,
+} from "../../nodes/OnOffice/utils/parameterBuilder";
 
 describe("parameterBuilder", () => {
+  describe("parseCommaSeparatedStrings", () => {
+    it("should parse single string", () => {
+      const result = parseCommaSeparatedStrings("test");
+      expect(result).toEqual(["test"]);
+    });
+
+    it("should parse multiple comma-separated strings", () => {
+      const result = parseCommaSeparatedStrings("test1,test2,test3");
+      expect(result).toEqual(["test1", "test2", "test3"]);
+    });
+
+    it("should handle strings with spaces around commas", () => {
+      const result = parseCommaSeparatedStrings("test1, test2, test3");
+      expect(result).toEqual(["test1", "test2", "test3"]);
+    });
+
+    it("should handle strings with leading/trailing spaces", () => {
+      const result = parseCommaSeparatedStrings("  test1, test2, test3  ");
+      expect(result).toEqual(["test1", "test2", "test3"]);
+    });
+
+    it("should return empty array for empty string", () => {
+      const result = parseCommaSeparatedStrings("");
+      expect(result).toEqual([]);
+    });
+
+    it("should return empty array for whitespace-only string", () => {
+      const result = parseCommaSeparatedStrings("   ");
+      expect(result).toEqual([]);
+    });
+
+    it("should handle numeric strings", () => {
+      const result = parseCommaSeparatedStrings("123,456,789");
+      expect(result).toEqual(["123", "456", "789"]);
+    });
+
+    it("should handle recordids from real-world example", () => {
+      const result = parseCommaSeparatedStrings("123,124,125");
+      expect(result).toEqual(["123", "124", "125"]);
+    });
+
+    it("should handle single string with trailing comma", () => {
+      const result = parseCommaSeparatedStrings("test,");
+      expect(result).toEqual(["test"]);
+    });
+
+    it("should handle duplicate strings", () => {
+      const result = parseCommaSeparatedStrings("test,test,value,value");
+      expect(result).toEqual(["test", "test", "value", "value"]);
+    });
+
+    it("should not mutate input string", () => {
+      const input = "test1, test2, test3";
+      const inputCopy = input;
+      parseCommaSeparatedStrings(input);
+      expect(input).toBe(inputCopy);
+    });
+
+    it("should handle mixed spacing patterns", () => {
+      const result = parseCommaSeparatedStrings("test1 , test2,test3 , test4");
+      expect(result).toEqual(["test1", "test2", "test3", "test4"]);
+    });
+
+    it("should filter out empty strings after trimming", () => {
+      const result = parseCommaSeparatedStrings("test1,,test2,  ,test3");
+      expect(result).toEqual(["test1", "test2", "test3"]);
+    });
+
+    it("should handle special characters in strings", () => {
+      const result = parseCommaSeparatedStrings("test-1,test_2,test.3");
+      expect(result).toEqual(["test-1", "test_2", "test.3"]);
+    });
+  });
+
   describe("parseCommaSeparatedNumbers", () => {
     it("should parse single number", () => {
       const result = parseCommaSeparatedNumbers("123");

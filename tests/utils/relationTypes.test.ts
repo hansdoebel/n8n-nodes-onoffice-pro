@@ -1,5 +1,5 @@
 import { getRelationTypeOptions } from "../../nodes/OnOffice/utils/relationTypes";
-import { RELATION_TYPES } from "../../nodes/OnOffice/utils/types";
+import { RELATION_TYPES } from "../../nodes/OnOffice/utils/constants";
 
 describe("relationTypes", () => {
   describe("getRelationTypeOptions", () => {
