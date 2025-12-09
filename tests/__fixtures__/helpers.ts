@@ -14,4 +14,5 @@ export const fixtures = {
     loadFixture("relation-error-invalid-type.json"),
   relationEmpty: () => loadFixture("relation-empty.json"),
   addressSuccess: () => loadFixture("address-success.json"),
+  agentslogSuccess: () => loadFixture("agentslog-success.json"),
 };

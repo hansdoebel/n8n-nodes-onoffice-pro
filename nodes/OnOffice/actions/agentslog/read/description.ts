@@ -109,14 +109,6 @@ export const readAgentslogDescription: INodeProperties[] = [
           "Return only entries associated with these estate records. Input multiple IDs separated by commas.",
       },
       {
-        displayName: "Filter",
-        name: "filter",
-        type: "json",
-        default: "",
-        description:
-          'Key: field, value: array of objects with filter expressions, e.g. {"Aktionsart": [{"op": "IN","val": ["Email","Preisänderung"]},{"op": "BETWEEN","val": ["2020-01-01","2021-04-01"]}]}',
-      },
-      {
         displayName: "Filter Rules",
         name: "filterRules",
         type: "fixedCollection",
