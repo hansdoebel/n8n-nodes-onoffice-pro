@@ -1,0 +1,64 @@
+{
+  "status": {
+    "code": 200,
+    "errorcode": 0,
+    "message": "OK"
+  },
+  "response": {
+    "results": [
+      {
+        "actionid": "urn:onoffice-de-ns:smart:2.5:smartml:action:read",
+        "resourceid": "1001",
+        "resourcetype": "estate",
+        "cacheable": true,
+        "identifier": "",
+        "data": [
+          {
+            "id": "1001",
+            "type": "estate",
+            "elements": {
+              "Id": "1001",
+              "objektnr_extern": "EST-2024-001",
+              "strasse": "Hauptstraße",
+              "hausnummer": "123",
+              "plz": "10115",
+              "ort": "Berlin",
+              "objektart": "haus",
+              "objekttyp": "einfamilienhaus",
+              "vermarktungsart": "kauf",
+              "nutzungsart": "wohnen",
+              "stammobjekt": "1",
+              "einheit": "0",
+              "benutzer": "John Doe",
+              "autoExpose": "1"
+            }
+          },
+          {
+            "id": "1002",
+            "type": "estate",
+            "elements": {
+              "Id": "1002",
+              "objektnr_extern": "EST-2024-002",
+              "strasse": "Berliner Straße",
+              "hausnummer": "456",
+              "plz": "80331",
+              "ort": "München",
+              "objektart": "wohnung",
+              "objekttyp": "etagenwohnung",
+              "vermarktungsart": "miete",
+              "nutzungsart": "wohnen",
+              "stammobjekt": "2",
+              "einheit": "0",
+              "benutzer": "Jane Smith",
+              "autoExpose": "0"
+            }
+          }
+        ],
+        "status": {
+          "errorcode": 0,
+          "message": "OK"
+        }
+      }
+    ]
+  }
+}

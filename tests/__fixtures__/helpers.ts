@@ -15,4 +15,5 @@ export const fixtures = {
   relationEmpty: () => loadFixture("relation-empty.json"),
   addressSuccess: () => loadFixture("address-success.json"),
   agentslogSuccess: () => loadFixture("agentslog-success.json"),
+  estateSuccess: () => loadFixture("estate-success.json"),
 };
