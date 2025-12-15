@@ -160,6 +160,7 @@ pnpm format
 - Node UX Enhancements (Auto-load dropdowns)
 - Operation Integration Tests
 - End-to-End Workflow Tests
+- Add authentication test to credentials
 
 ---
 
