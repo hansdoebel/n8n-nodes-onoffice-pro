@@ -4,20 +4,16 @@
 
 This is a custom n8n community node providing an integration with onOffice.
 
----
+## Table of Contents
 
-## 📚 Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Authentication](#authentication)
+- [Roadmap](#roadmap)
+- [Resources](#resources)
+- [Version History](#version-history)
 
-- Features
-- Installation
-- Authentication
-- Development & Testing
-- Roadmap
-- Resources
-
----
-
-## 📁 Features
+## Features
 
 - Address (Create, Read)
 - Estate (Read)
@@ -27,9 +23,7 @@ This is a custom n8n community node providing an integration with onOffice.
 - Settings (Read)
 - Templates (Read)
 
----
-
-## 📦 Installation
+## Installation
 
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
@@ -49,9 +43,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 5. Agree to the risks of using community nodes: select I understand the risks of installing unverified code from a public source.
 6. Select Install. n8n installs the node, and returns to the Community Nodes list in Settings.
 
----
-
-## 🔐 Authentication
+## Authentication
 
 The onOffice node uses API Token authentication via the official onOffice Enterprise API.
 
@@ -73,86 +65,7 @@ In n8n:
 - Create OnOffice API
 - Enter: Token, Secret
 
----
-
-## 🧪 Development & Testing
-
-### Setup Development Environment
-
-```bash
-# Install dependencies
-pnpm install
-
-# Build the project
-pnpm build
-
-# Watch mode (auto-compile on changes)
-pnpm dev
-```
-
-### Running Tests
-
-This project includes comprehensive unit tests for all utility functions and core functionality.
-
-```bash
-# Run all tests
-pnpm test
-
-# Run tests in watch mode (auto-run on file changes)
-pnpm test:watch
-
-# Run tests with coverage report
-pnpm test:coverage
-```
-
-### Test Structure
-
-Tests are located in the `tests/` directory and organized by functionality:
-
-```
-tests/
-├── __fixtures__/
-│   ├── api-responses/          # Mock API response data
-│   │   ├── relation-success.json
-│   │   ├── relation-error-invalid-type.json
-│   │   ├── relation-empty.json
-│   │   └── address-success.json
-│   └── helpers.ts              # Fixture loading utilities
-└── utils/
-    ├── responseHandler.test.ts  # Response processing tests
-    ├── errorHandling.test.ts    # Error handling tests
-    ├── relationTypes.test.ts     # Relation type validation tests
-    ├── parameterBuilder.test.ts  # Parameter parsing tests
-    ├── parameterExtraction.test.ts
-    └── hmac.test.ts            # HMAC signature tests
-```
-
-### Test Coverage
-
-Current test coverage includes:
-- **Response Handler**: Data extraction, error detection, response validation
-- **Error Handling**: Custom error throwing and formatting
-- **Relation Types**: All 60+ relation types from onOffice API
-- **Parameter Parsing**: CSV parsing, type conversion, edge cases
-- **Parameter Extraction**: String, number, boolean, array, object extraction
-- **HMAC Generation**: Cryptographic signature generation and validation
-
-### Code Quality
-
-```bash
-# Lint code
-pnpm lint
-
-# Fix linting issues
-pnpm lintfix
-
-# Format code
-pnpm format
-```
-
----
-
-## 🚧 Roadmap
+## Roadmap
 
 - Appointment Module (Full CRUD for appointments)
 - Estate Module Enhancements
@@ -162,9 +75,7 @@ pnpm format
 - End-to-End Workflow Tests
 - Add authentication test to credentials
 
----
-
-## 🔗 Resources
+## Resources
 
 - [n8n Website](https://n8n.io/)
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
@@ -172,9 +83,7 @@ pnpm format
 - [onOffice API documentation](https://apidoc.onoffice.de/)
 - [GitHub Repository](https://github.com/hansdoebel/n8n-nodes-onoffice-pro)
 
----
-
-## 📜 Version History
+## Version History
 
 - `0.0.9` – Added more tests, fixed minor bugs, improved documentation
 - `0.0.8` – Enhanced relation operations with comprehensive error handling, 60+ relation types, 107 unit tests
