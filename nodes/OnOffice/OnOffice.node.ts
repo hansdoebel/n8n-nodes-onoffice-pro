@@ -13,9 +13,12 @@ import * as agentslog from "./actions/agentslog";
 import * as appointments from "./actions/appointments";
 import * as email from "./actions/email";
 import * as estate from "./actions/estate";
+import * as files from "./actions/files";
 import * as relation from "./actions/relation";
 import * as settings from "./actions/settings";
 import * as templates from "./actions/templates";
+import * as task from "./actions/task";
+import * as searchcriteria from "./actions/searchcriteria";
 
 export class OnOffice implements INodeType {
   description: INodeTypeDescription = {
@@ -65,12 +68,24 @@ export class OnOffice implements INodeType {
             value: "estate",
           },
           {
+            name: "File",
+            value: "files",
+          },
+          {
             name: "Relation",
             value: "relation",
           },
           {
+            name: "Search Criterion",
+            value: "searchcriteria",
+          },
+          {
             name: "Setting",
             value: "settings",
+          },
+          {
+            name: "Task",
+            value: "task",
           },
           {
             name: "Template",
@@ -84,8 +99,11 @@ export class OnOffice implements INodeType {
       ...appointments.descriptions,
       ...email.descriptions,
       ...estate.descriptions,
+      ...files.descriptions,
       ...relation.descriptions,
+      ...searchcriteria.descriptions,
       ...settings.descriptions,
+      ...task.descriptions,
       ...templates.descriptions,
     ],
   };

@@ -1,3 +1,4 @@
-import { relationCreateDescription as description } from './description';
+import { createRelationDescription as description } from "./description";
+import { createRelation as execute } from "./execute";
 
-export { description };
+export { description, execute };

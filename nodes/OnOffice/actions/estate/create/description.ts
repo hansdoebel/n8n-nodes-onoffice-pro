@@ -1,0 +1,172 @@
+import type { INodeProperties } from "n8n-workflow";
+
+export const createEstateDescription: INodeProperties[] = [
+  {
+    displayName: "Data",
+    name: "data",
+    type: "collection",
+    placeholder: "Add Field",
+    default: {},
+    displayOptions: {
+      show: {
+        resource: ["estate"],
+        operation: ["create"],
+      },
+    },
+    options: [
+      {
+        displayName: "Additional Costs (Nebenkosten)",
+        name: "nebenkosten",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "City (Ort)",
+        name: "ort",
+        type: "string",
+        default: "",
+      },
+      {
+        displayName: "Country (Land)",
+        name: "land",
+        type: "string",
+        default: "DEU",
+        description: "ISO 3166-1 alpha-3 country code",
+      },
+      {
+        displayName: "Heating Costs (Heizkosten)",
+        name: "heizkosten",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "Latitude (Breitengrad)",
+        name: "breitengrad",
+        type: "string",
+        default: "",
+      },
+      {
+        displayName: "Living Area (Wohnflaeche)",
+        name: "wohnflaeche",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "Longitude (Laengengrad)",
+        name: "laengengrad",
+        type: "string",
+        default: "",
+      },
+      {
+        displayName: "Marketing Method (Vermarktungsart)",
+        name: "vermarktungsart",
+        type: "options",
+        options: [
+          { name: "Kauf", value: "kauf" },
+          { name: "Miete/Pacht", value: "miete_pacht" },
+          { name: "Erbpacht", value: "erbpacht" },
+          { name: "Leasing", value: "leasing" },
+        ],
+        default: "kauf",
+      },
+      {
+        displayName: "Number of Bathrooms (Anzahl_badezimmer)",
+        name: "anzahl_badezimmer",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "Number of Bedrooms (Anzahl_schlafzimmer)",
+        name: "anzahl_schlafzimmer",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "Number of Rooms (Anzahl_zimmer)",
+        name: "anzahl_zimmer",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "PLZ",
+        name: "plz",
+        type: "string",
+        default: "",
+      },
+      {
+        displayName: "Property Subtype (Objekttyp)",
+        name: "objekttyp",
+        type: "string",
+        default: "",
+      },
+      {
+        displayName: "Property Type (Objektart)",
+        name: "objektart",
+        type: "options",
+        options: [
+          { name: "Büro/Praxis", value: "buero_praxen" },
+          { name: "Einzelhandel", value: "einzelhandel" },
+          {
+            name: "Freizeitimmobilie Gewerblich",
+            value: "freizeitimmobilie_gewerblich",
+          },
+          { name: "Gastgewerbe", value: "gastgewerbe" },
+          { name: "Grundstück", value: "grundstueck" },
+          { name: "Halle/Lager/Produktion", value: "hallen_lager_prod" },
+          { name: "Haus", value: "haus" },
+          {
+            name: "Land- Und Forstwirtschaft",
+            value: "land_und_forstwirtschaft",
+          },
+          { name: "Parken", value: "parken" },
+          { name: "Sonstige", value: "sonstige" },
+          { name: "Wohnung", value: "wohnung" },
+          { name: "Zimmer", value: "zimmer" },
+        ],
+        default: "haus",
+      },
+      {
+        displayName: "Purchase Price (Kaufpreis)",
+        name: "kaufpreis",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "Rent (Mietpreis_pro_qm)",
+        name: "mietpreis_pro_qm",
+        type: "number",
+        default: 0,
+      },
+      {
+        displayName: "Status",
+        name: "status",
+        type: "options",
+        options: [
+          { name: "Archive", value: 0 },
+          { name: "Active", value: 1 },
+          { name: "Pending", value: 2 },
+        ],
+        default: 1,
+      },
+      {
+        displayName: "Usage Type (Nutzungsart)",
+        name: "nutzungsart",
+        type: "options",
+        options: [
+          { name: "Wohnen", value: "wohnen" },
+          { name: "Gewerbe", value: "gewerbe" },
+          { name: "Anlage", value: "anlage" },
+          { name: "WAZ", value: "waz" },
+        ],
+        default: "wohnen",
+      },
+      {
+        displayName: "User ID (Benutzer)",
+        name: "benutzer",
+        type: "number",
+        default: 0,
+        description: "Support/Betreuer user ID",
+      },
+    ],
+  },
+];
