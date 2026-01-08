@@ -1,4 +1,8 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import {
+  IDataObject,
+  IExecuteFunctions,
+  INodeExecutionData,
+} from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   buildParameters,
@@ -90,10 +94,10 @@ export async function readAgentslog(
         if (!field || !operator || value === "") continue;
 
         if (!computedFilter) {
-          computedFilter = {};
+          computedFilter = {} as IDataObject;
         }
         if (!computedFilter[field]) {
-          (computedFilter as any)[field] = [];
+          computedFilter[field] = [];
         }
 
         let val: string | string[] = value;
@@ -106,9 +110,9 @@ export async function readAgentslog(
         }
 
         if (!Array.isArray(computedFilter[field])) {
-          (computedFilter as any)[field] = [];
+          computedFilter[field] = [] as Array<{ op: string; val: unknown }>;
         }
-        const fieldArray = (computedFilter as any)[field] as Array<{
+        const fieldArray = computedFilter[field] as Array<{
           op: string;
           val: unknown;
         }>;
@@ -161,7 +165,7 @@ export async function readAgentslog(
 
     const responseData = extractResponseData(response);
     return this.helpers.returnJsonArray(responseData);
-  } catch (error: any) {
+  } catch (error) {
     handleExecutionError(this, error, {
       resource: "agentslog",
       operation: "read",

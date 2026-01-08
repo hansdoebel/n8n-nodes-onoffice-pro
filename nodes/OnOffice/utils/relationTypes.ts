@@ -1,5 +1,5 @@
 import { INodePropertyOptions } from "n8n-workflow";
-import { RELATION_TYPES } from "./constants";
+import { RELATION_TYPES } from "./constants/relationTypes";
 
 export function getRelationTypeOptions(): INodePropertyOptions[] {
   const options: INodePropertyOptions[] = [];

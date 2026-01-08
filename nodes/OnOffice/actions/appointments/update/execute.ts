@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData, IDataObject } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   parseCommaSeparatedNumbers,
@@ -22,7 +22,7 @@ export async function updateAppointment(
 
     const dataFields = extractObject(this, "data", itemIndex, {});
 
-    let data: any = {};
+    let data: IDataObject = {};
 
     if (dataFields.description) {
       data.description = dataFields.description;
@@ -66,7 +66,7 @@ export async function updateAppointment(
       data.erinnerung = dataFields.erinnerung;
     }
 
-    let parameters: any = { data };
+    let parameters: IDataObject = { data };
 
     const relatedAddressIds = extractString(
       this,

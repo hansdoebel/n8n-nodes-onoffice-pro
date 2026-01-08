@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData, IDataObject } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { handleExecutionError } from "../../../utils/errorHandling";
 import {
@@ -26,7 +26,7 @@ export async function createTask(
       0,
     );
 
-    let parameters: any = {
+    let parameters: IDataObject = {
       data: dataFields,
     };
 

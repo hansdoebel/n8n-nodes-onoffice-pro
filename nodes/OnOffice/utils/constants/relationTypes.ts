@@ -1,6 +1,4 @@
-import { RelationType } from "./types";
-
-export const API_URL = "https://api.onoffice.de/api/stable/api.php";
+import { RelationType } from "../types";
 
 export const RELATION_TYPES: Record<string, RelationType[]> = {
   "Estate & Address": [

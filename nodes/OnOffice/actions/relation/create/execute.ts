@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData, IDataObject } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedNumbers } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
@@ -19,7 +19,7 @@ export async function createRelation(
 
     const relationinfo = extractObject(this, "relationinfo", itemIndex, {});
 
-    let parameters: any = {
+    let parameters: IDataObject = {
       parentid: parseCommaSeparatedNumbers(parentIds),
       childid: parseCommaSeparatedNumbers(childIds),
       relationtype,

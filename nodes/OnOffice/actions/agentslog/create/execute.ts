@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData, IDataObject } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import {
   parseCommaSeparatedNumbers,
@@ -20,7 +20,7 @@ export async function createAgentslog(
       {},
     );
 
-    let parameters: any = {};
+    let parameters: IDataObject = {};
 
     if (additionalFields.datetime) {
       parameters.datetime = additionalFields.datetime;

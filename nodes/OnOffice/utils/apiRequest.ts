@@ -5,7 +5,7 @@ import {
 } from "n8n-workflow";
 import { getActionId } from "./actionIds";
 import { generateHmac } from "./hmac";
-import { API_URL } from "./constants";
+import { API_CONFIG, API_URL } from "./constants";
 import { ApiRequestOptions, OnOfficeApiResponse, RequestBody } from "./types";
 
 export async function apiRequest(
@@ -46,7 +46,7 @@ export async function apiRequest(
     identifier: "",
     timestamp,
     hmac: hmacSignature,
-    hmac_version: 2,
+    hmac_version: API_CONFIG.HMAC_VERSION,
     resourceid: resourceId,
     parameters,
   };
@@ -59,6 +59,7 @@ export async function apiRequest(
       request: { actions: [requestBody] },
     },
     json: true,
+    timeout: API_CONFIG.DEFAULT_TIMEOUT,
   };
 
   try {

@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData, IDataObject } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedStrings } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
@@ -22,7 +22,7 @@ export async function searchAddress(
       {},
     );
 
-    let parameters: any = {
+    let parameters: IDataObject = {
       input: searchInput,
     };
 

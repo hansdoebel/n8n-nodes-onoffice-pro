@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData, IDataObject } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { parseCommaSeparatedStrings } from "../../../utils/parameterBuilder";
 import { handleExecutionError } from "../../../utils/errorHandling";
@@ -22,7 +22,7 @@ export async function updateAgentslog(
       {},
     );
 
-    let data: any = {};
+    let data: IDataObject = {};
 
     if (dataFields.actionkind) {
       data.actionkind = dataFields.actionkind;

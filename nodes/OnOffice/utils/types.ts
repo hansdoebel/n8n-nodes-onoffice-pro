@@ -167,6 +167,40 @@ export interface TemplateParameters extends IDataObject {
   list?: boolean;
 }
 
+export interface TaskParameters extends IDataObject {
+  data?: string[];
+  listlimit?: number;
+  listoffset?: number;
+  sortby?: string;
+  sortorder?: string;
+}
+
+export interface SearchCriteriaParameters extends IDataObject {
+  data?: string[];
+  listlimit?: number;
+  listoffset?: number;
+  sortby?: string;
+  sortorder?: string;
+}
+
+export interface RelationCreateParameters extends IDataObject {
+  relationtype: string;
+  parentids: number[];
+  childids: number[];
+}
+
+export interface RelationUpdateParameters extends IDataObject {
+  relationtype: string;
+  parentids: number[];
+  childids: number[];
+}
+
+export interface RelationDeleteParameters extends IDataObject {
+  relationtype: string;
+  parentids: number[];
+  childids: number[];
+}
+
 export type OperationParameters =
   | AddressParameters
   | EstateParameters
@@ -175,4 +209,9 @@ export type OperationParameters =
   | AppointmentCreateParameters
   | EmailParameters
   | RelationParameters
-  | TemplateParameters;
+  | TemplateParameters
+  | TaskParameters
+  | SearchCriteriaParameters
+  | RelationCreateParameters
+  | RelationUpdateParameters
+  | RelationDeleteParameters;

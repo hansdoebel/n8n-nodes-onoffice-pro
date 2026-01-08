@@ -68,7 +68,7 @@ export async function getRelation(
 
     const responseData = extractResponseData(response);
     return this.helpers.returnJsonArray(responseData);
-  } catch (error: any) {
+  } catch (error) {
     handleExecutionError(this, error, {
       resource: "relation",
       operation: "get",

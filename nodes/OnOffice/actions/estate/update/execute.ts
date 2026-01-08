@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData, IDataObject } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { handleExecutionError } from "../../../utils/errorHandling";
 import {
@@ -16,7 +16,7 @@ export async function updateEstate(
 
     const dataFields = extractObject(this, "data", itemIndex, {});
 
-    let data: any = {};
+    let data: IDataObject = {};
 
     Object.keys(dataFields).forEach((key) => {
       if (

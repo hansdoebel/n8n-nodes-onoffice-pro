@@ -1,4 +1,4 @@
-import { IExecuteFunctions, INodeExecutionData } from "n8n-workflow";
+import { IExecuteFunctions, INodeExecutionData, IDataObject } from "n8n-workflow";
 import { apiRequest } from "../../../utils/apiRequest";
 import { handleExecutionError } from "../../../utils/errorHandling";
 import {
@@ -15,7 +15,7 @@ export async function updateTask(
     const taskId = extractNumber(this, "taskId", itemIndex);
     const dataFields = extractObject(this, "data", itemIndex, {});
 
-    const parameters: any = {
+    const parameters: IDataObject = {
       data: dataFields,
     };
 
