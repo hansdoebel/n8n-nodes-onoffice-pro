@@ -79,6 +79,7 @@ In n8n:
 
 - [n8n Website](https://n8n.io/)
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+- [n8n Documentation for LLMs](https://docs.n8n.io/llms.txt)
 - [onOffice Website](https://onoffice.de/)
 - [onOffice API documentation](https://apidoc.onoffice.de/)
 - [GitHub Repository](https://github.com/hansdoebel/n8n-nodes-onoffice-pro)
