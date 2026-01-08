@@ -36,6 +36,13 @@ import { quickSearch } from "../actions/estate/quickSearch/execute";
 import { generatePDFExpose } from "../actions/estate/generatePDFExpose/execute";
 import { getSellingPriceOffer } from "../actions/estate/getSellingPriceOffer/execute";
 import { doSellingPriceOffer } from "../actions/estate/doSellingPriceOffer/execute";
+import { getImagesOnHomepage } from "../actions/estate/getImagesOnHomepage/execute";
+import { getTenantBuyerSeeker } from "../actions/estate/getTenantBuyerSeeker/execute";
+import { getStatisticsWidgets } from "../actions/estate/getStatisticsWidgets/execute";
+import { getTrackingDetails } from "../actions/estate/getTrackingDetails/execute";
+import { getFilter } from "../actions/estate/getFilter/execute";
+import { createTrackingAccount } from "../actions/estate/createTrackingAccount/execute";
+import { createWorkingList } from "../actions/estate/createWorkingList/execute";
 
 import { getRelation } from "../actions/relation/get/execute";
 import { createRelation } from "../actions/relation/create/execute";
@@ -97,6 +104,13 @@ export function registerAllActions(): void {
   registerAction("estate", "generatePDFExpose", generatePDFExpose);
   registerAction("estate", "getSellingPriceOffer", getSellingPriceOffer);
   registerAction("estate", "doSellingPriceOffer", doSellingPriceOffer);
+  registerAction("estate", "getImagesOnHomepage", getImagesOnHomepage);
+  registerAction("estate", "getTenantBuyerSeeker", getTenantBuyerSeeker);
+  registerAction("estate", "getStatisticsWidgets", getStatisticsWidgets);
+  registerAction("estate", "getTrackingDetails", getTrackingDetails);
+  registerAction("estate", "getFilter", getFilter);
+  registerAction("estate", "createTrackingAccount", createTrackingAccount);
+  registerAction("estate", "createWorkingList", createWorkingList);
 
   registerAction("relation", "get", getRelation);
   registerAction("relation", "create", createRelation);

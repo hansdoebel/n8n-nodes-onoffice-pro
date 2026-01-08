@@ -11,15 +11,29 @@ import * as quickSearch from "./quickSearch";
 import * as generatePDFExpose from "./generatePDFExpose";
 import * as getSellingPriceOffer from "./getSellingPriceOffer";
 import * as doSellingPriceOffer from "./doSellingPriceOffer";
+import * as getImagesOnHomepage from "./getImagesOnHomepage";
+import * as getTenantBuyerSeeker from "./getTenantBuyerSeeker";
+import * as getStatisticsWidgets from "./getStatisticsWidgets";
+import * as getTrackingDetails from "./getTrackingDetails";
+import * as getFilter from "./getFilter";
+import * as createTrackingAccount from "./createTrackingAccount";
+import * as createWorkingList from "./createWorkingList";
 
 export {
   create,
+  createTrackingAccount,
+  createWorkingList,
   deleteFiles,
   doSellingPriceOffer,
   generatePDFExpose,
   getCategories,
   getFiles,
+  getFilter,
+  getImagesOnHomepage,
   getSellingPriceOffer,
+  getStatisticsWidgets,
+  getTenantBuyerSeeker,
+  getTrackingDetails,
   modifyFiles,
   quickSearch,
   read,
@@ -43,6 +57,18 @@ export const descriptions: INodeProperties[] = [
         value: "create",
         description: "Create an estate",
         action: "Create an estate",
+      },
+      {
+        name: "Create Tracking Account",
+        value: "createTrackingAccount",
+        description: "Create estate tracking account",
+        action: "Create estate tracking account",
+      },
+      {
+        name: "Create Working List",
+        value: "createWorkingList",
+        description: "Create a working list",
+        action: "Create a working list",
       },
       {
         name: "Delete Files",
@@ -74,9 +100,38 @@ export const descriptions: INodeProperties[] = [
         action: "Get estate files",
       },
       {
+        name: "Get Filter",
+        value: "getFilter",
+        description: "Get filters for module",
+        action: "Get filters for module",
+      },
+      {
+        name: "Get Images on Homepage",
+        value: "getImagesOnHomepage",
+        description: "Get estate images for homepage",
+        action: "Get estate images for homepage",
+      },
+      {
         name: "Get Selling Price Offer",
         value: "getSellingPriceOffer",
         action: "Get selling price offer",
+      },
+      {
+        name: "Get Statistics Widgets",
+        value: "getStatisticsWidgets",
+        action: "Get statistics widgets",
+      },
+      {
+        name: "Get Tenant Buyer Seeker",
+        value: "getTenantBuyerSeeker",
+        description: "Get qualified suitors for estate",
+        action: "Get qualified suitors for estate",
+      },
+      {
+        name: "Get Tracking Details",
+        value: "getTrackingDetails",
+        description: "Get estate tracking details",
+        action: "Get estate tracking details",
       },
       {
         name: "Modify Files",
@@ -116,4 +171,11 @@ export const descriptions: INodeProperties[] = [
   ...generatePDFExpose.description,
   ...getSellingPriceOffer.description,
   ...doSellingPriceOffer.description,
+  ...getImagesOnHomepage.description,
+  ...getTenantBuyerSeeker.description,
+  ...getStatisticsWidgets.description,
+  ...getTrackingDetails.description,
+  ...getFilter.description,
+  ...createTrackingAccount.description,
+  ...createWorkingList.description,
 ];

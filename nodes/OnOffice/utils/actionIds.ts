@@ -15,7 +15,11 @@ function getActionId(operation: string): string {
     operation === "getFiles" || operation === "downloadFiles" ||
     operation === "getCompletionFields" || operation === "getSelectValues" ||
     operation === "getCategories" || operation === "getList" ||
-    operation === "getDefaultAttachments"
+    operation === "getDefaultAttachments" ||
+    operation === "getImagesOnHomepage" ||
+    operation === "getTenantBuyerSeeker" ||
+    operation === "getStatisticsWidgets" ||
+    operation === "getTrackingDetails" || operation === "getFilter"
   ) {
     return actionIds["get"];
   }
@@ -24,7 +28,8 @@ function getActionId(operation: string): string {
     operation === "generatePDFExpose" || operation === "quickSearch" ||
     operation === "getSellingPriceOffer" ||
     operation === "doSellingPriceOffer" ||
-    operation === "sendConfirmation" || operation === "upload"
+    operation === "sendConfirmation" || operation === "upload" ||
+    operation === "createTrackingAccount"
   ) {
     return actionIds["do"];
   }
