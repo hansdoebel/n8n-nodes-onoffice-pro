@@ -1,0 +1,799 @@
+{
+  "title": "onOffice API Documentation",
+  "scraped": "2026-01-08T20:24:35.007Z",
+  "sections": [
+    {
+      "key": "introduction",
+      "name": "Introduction & Getting Started",
+      "files": [
+        {
+          "filename": "index.md",
+          "url": "https://apidoc.onoffice.de/",
+          "path": "introduction/index.md"
+        },
+        {
+          "filename": "erste-schritte.md",
+          "url": "https://apidoc.onoffice.de/erste-schritte/",
+          "path": "introduction/erste-schritte.md"
+        }
+      ]
+    },
+    {
+      "key": "general",
+      "name": "API Structure & General Information",
+      "files": [
+        {
+          "filename": "terminologie.md",
+          "url": "https://apidoc.onoffice.de/terminologie/",
+          "path": "general/terminologie.md"
+        },
+        {
+          "filename": "api-benutzer-anlegen.md",
+          "url": "https://apidoc.onoffice.de/api-benutzer-anlegen/",
+          "path": "general/api-benutzer-anlegen.md"
+        },
+        {
+          "filename": "access-token-generieren.md",
+          "url": "https://apidoc.onoffice.de/access-token-generieren/",
+          "path": "general/access-token-generieren.md"
+        },
+        {
+          "filename": "allgemeine-hinweise.md",
+          "url": "https://apidoc.onoffice.de/allgemeine-hinweise/",
+          "path": "general/allgemeine-hinweise.md"
+        },
+        {
+          "filename": "fehler.md",
+          "url": "https://apidoc.onoffice.de/fehler/",
+          "path": "general/fehler.md"
+        }
+      ]
+    },
+    {
+      "key": "request",
+      "name": "API Request Structure",
+      "files": [
+        {
+          "filename": "onoffice-api-request.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-request/",
+          "path": "request/onoffice-api-request.md"
+        },
+        {
+          "filename": "onoffice-api-request-aufbau.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-request/aufbau/",
+          "path": "request/onoffice-api-request-aufbau.md"
+        },
+        {
+          "filename": "onoffice-api-request-request-elemente.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-request/request-elemente/",
+          "path": "request/onoffice-api-request-request-elemente.md"
+        },
+        {
+          "filename": "onoffice-api-request-request-elemente-wurzelelement.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-request/request-elemente/wurzelelement/",
+          "path": "request/onoffice-api-request-request-elemente-wurzelelement.md"
+        },
+        {
+          "filename": "onoffice-api-request-request-elemente-request.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-request/request-elemente/request/",
+          "path": "request/onoffice-api-request-request-elemente-request.md"
+        },
+        {
+          "filename": "onoffice-api-request-request-elemente-actions.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-request/request-elemente/actions/",
+          "path": "request/onoffice-api-request-request-elemente-actions.md"
+        },
+        {
+          "filename": "onoffice-api-request-request-elemente-action.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-request/request-elemente/action/",
+          "path": "request/onoffice-api-request-request-elemente-action.md"
+        }
+      ]
+    },
+    {
+      "key": "response",
+      "name": "API Response Structure",
+      "files": [
+        {
+          "filename": "onoffice-api-response.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/",
+          "path": "response/onoffice-api-response.md"
+        },
+        {
+          "filename": "onoffice-api-response-aufbau.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/aufbau/",
+          "path": "response/onoffice-api-response-aufbau.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/",
+          "path": "response/onoffice-api-response-response-elemente.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-wurzelelement.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/wurzelelement/",
+          "path": "response/onoffice-api-response-response-elemente-wurzelelement.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-status.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/status/",
+          "path": "response/onoffice-api-response-response-elemente-status.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-response.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/response/",
+          "path": "response/onoffice-api-response-response-elemente-response.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-results.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/results/",
+          "path": "response/onoffice-api-response-response-elemente-results.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-result.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/result/",
+          "path": "response/onoffice-api-response-response-elemente-result.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-data.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/data/",
+          "path": "response/onoffice-api-response-response-elemente-data.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-records.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/records/",
+          "path": "response/onoffice-api-response-response-elemente-records.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-record.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/record/",
+          "path": "response/onoffice-api-response-response-elemente-record.md"
+        },
+        {
+          "filename": "onoffice-api-response-response-elemente-elements.md",
+          "url": "https://apidoc.onoffice.de/onoffice-api-response/response-elemente/elements/",
+          "path": "response/onoffice-api-response-response-elemente-elements.md"
+        }
+      ]
+    },
+    {
+      "key": "estates",
+      "name": "Estates Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-estates.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/estates/",
+          "path": "estates/api-calls-sorted-by-module-estates.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-objekte.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/objekte/",
+          "path": "estates/actions-datensatz-lesen-objekte.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen-objekte.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/objekte/",
+          "path": "estates/actions-datensatz-anlegen-objekte.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-objekte.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/objekte/",
+          "path": "estates/actions-datensatz-bearbeiten-objekte.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-generierung-eines-pdf-exposes.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/generierung-eines-pdf-exposes/",
+          "path": "estates/actions-aktionen-ausfuehren-generierung-eines-pdf-exposes.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-objektdateien.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/objektdateien/",
+          "path": "estates/actions-informationen-abfragen-objektdateien.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-auf-homepage-veroeffentlichte-objektbilder.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/auf-homepage-veroeffentlichte-objektbilder/",
+          "path": "estates/actions-informationen-abfragen-auf-homepage-veroeffentlichte-objektbilder.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-files.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/files/",
+          "path": "estates/actions-datensatz-bearbeiten-files.md"
+        },
+        {
+          "filename": "actions-datensatz-loeschen-files.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-loeschen/files/",
+          "path": "estates/actions-datensatz-loeschen-files.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-filter.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/filter/",
+          "path": "estates/actions-informationen-abfragen-filter.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen-working-list.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/working-list/",
+          "path": "estates/actions-datensatz-anlegen-working-list.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-selling-price-offer.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/selling-price-offer/",
+          "path": "estates/actions-informationen-abfragen-selling-price-offer.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-selling-price-offer.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/selling-price-offer/",
+          "path": "estates/actions-aktionen-ausfuehren-selling-price-offer.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-estate-tracking-details.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/estate-tracking-details/",
+          "path": "estates/actions-informationen-abfragen-estate-tracking-details.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-objekt-tracking-konto-erstellen.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/objekt-tracking-konto-erstellen/",
+          "path": "estates/actions-aktionen-ausfuehren-objekt-tracking-konto-erstellen.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-estate-categories.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/estate-categories/",
+          "path": "estates/actions-informationen-abfragen-estate-categories.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-suche-nach-objekten-quicksearch-nach-objektadresse-eigentuemer-und-ext-objektnummer.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/suche-nach-objekten-quicksearch-nach-objektadresse-eigentuemer-und-ext-objektnummer/",
+          "path": "estates/actions-informationen-abfragen-suche-nach-objekten-quicksearch-nach-objektadresse-eigentuemer-und-ext-objektnummer.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-mieter-kaeuferfinder-immomatching.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/mieter-kaeuferfinder-immomatching/",
+          "path": "estates/actions-informationen-abfragen-mieter-kaeuferfinder-immomatching.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-statistics-widgets.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-statistics-widgets/",
+          "path": "estates/actions-informationen-abfragen-get-statistics-widgets.md"
+        }
+      ]
+    },
+    {
+      "key": "addresses",
+      "name": "Addresses Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-addresses.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/addresses/",
+          "path": "addresses/api-calls-sorted-by-module-addresses.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-adressen.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/adressen/",
+          "path": "addresses/actions-datensatz-lesen-adressen.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen-adressen.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/adressen/",
+          "path": "addresses/actions-datensatz-anlegen-adressen.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-addresses.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/addresses/",
+          "path": "addresses/actions-datensatz-bearbeiten-addresses.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-suche.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/suche/",
+          "path": "addresses/actions-informationen-abfragen-suche.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-address-files.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/address-files/",
+          "path": "addresses/actions-informationen-abfragen-address-files.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-download-address-files.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/download-address-files/",
+          "path": "addresses/actions-informationen-abfragen-download-address-files.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-adressvervollstaendigungsfelder.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/adressvervollstaendigungsfelder/",
+          "path": "addresses/actions-informationen-abfragen-adressvervollstaendigungsfelder.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-adressvervollstaendigung-versenden.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/adressvervollstaendigung-versenden/",
+          "path": "addresses/actions-aktionen-ausfuehren-adressvervollstaendigung-versenden.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-newsletter-registration.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/newsletter-registration/",
+          "path": "addresses/actions-aktionen-ausfuehren-newsletter-registration.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-single-and-multiselect-values.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/single-and-multiselect-values/",
+          "path": "addresses/actions-informationen-abfragen-single-and-multiselect-values.md"
+        }
+      ]
+    },
+    {
+      "key": "search-criteria",
+      "name": "Search Criteria Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-search-criteria.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/search-criteria/",
+          "path": "search-criteria/api-calls-sorted-by-module-search-criteria.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-suchkriterien.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/suchkriterien/",
+          "path": "search-criteria/actions-informationen-abfragen-suchkriterien.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen-suchkriterien.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/suchkriterien/",
+          "path": "search-criteria/actions-datensatz-anlegen-suchkriterien.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-suchkriterien.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/suchkriterien/",
+          "path": "search-criteria/actions-datensatz-bearbeiten-suchkriterien.md"
+        },
+        {
+          "filename": "actions-datensatz-loeschen-suchkriterien.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-loeschen/suchkriterien/",
+          "path": "search-criteria/actions-datensatz-loeschen-suchkriterien.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-suchkriterienfelder.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/suchkriterienfelder/",
+          "path": "search-criteria/actions-informationen-abfragen-suchkriterienfelder.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-suche-nach-passenden-suchkriterien.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/suche-nach-passenden-suchkriterien/",
+          "path": "search-criteria/actions-informationen-abfragen-suche-nach-passenden-suchkriterien.md"
+        }
+      ]
+    },
+    {
+      "key": "agents-log",
+      "name": "Agents Log / Activities Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-agents-log.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/agents-log/",
+          "path": "agents-log/api-calls-sorted-by-module-agents-log.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-maklerbuch.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/maklerbuch/",
+          "path": "agents-log/actions-datensatz-lesen-maklerbuch.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen-maklerbuch-aktivitaeten.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/maklerbuch-aktivitaeten/",
+          "path": "agents-log/actions-datensatz-anlegen-maklerbuch-aktivitaeten.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-modify-agents-log-activities.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/modify-agents-log-activities/",
+          "path": "agents-log/actions-datensatz-bearbeiten-modify-agents-log-activities.md"
+        }
+      ]
+    },
+    {
+      "key": "appointments",
+      "name": "Appointments Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-appointments.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/appointments/",
+          "path": "appointments/api-calls-sorted-by-module-appointments.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-appointments-list.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-appointments-list/",
+          "path": "appointments/actions-informationen-abfragen-get-appointments-list.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-kalender-termin.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/kalender-termin/",
+          "path": "appointments/actions-datensatz-lesen-kalender-termin.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen-termine.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/termine/",
+          "path": "appointments/actions-datensatz-anlegen-termine.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-appointments.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/appointments/",
+          "path": "appointments/actions-datensatz-bearbeiten-appointments.md"
+        },
+        {
+          "filename": "actions-datensatz-loeschen-appointments.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-loeschen/appointments/",
+          "path": "appointments/actions-datensatz-loeschen-appointments.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-terminbestaetigung-versenden.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/terminbestaetigung-versenden/",
+          "path": "appointments/actions-aktionen-ausfuehren-terminbestaetigung-versenden.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-calendar-resources.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/calendar-resources/",
+          "path": "appointments/actions-informationen-abfragen-calendar-resources.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-appointment-files.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-appointment-files/",
+          "path": "appointments/actions-informationen-abfragen-get-appointment-files.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-appointment-conflicts.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-appointment-conflicts/",
+          "path": "appointments/actions-informationen-abfragen-get-appointment-conflicts.md"
+        }
+      ]
+    },
+    {
+      "key": "tasks",
+      "name": "Tasks Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-tasks.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/tasks/",
+          "path": "tasks/api-calls-sorted-by-module-tasks.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-tasks.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/tasks/",
+          "path": "tasks/actions-datensatz-lesen-tasks.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen-tasks.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/tasks/",
+          "path": "tasks/actions-datensatz-anlegen-tasks.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-tasks.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/tasks/",
+          "path": "tasks/actions-datensatz-bearbeiten-tasks.md"
+        }
+      ]
+    },
+    {
+      "key": "relations",
+      "name": "Relations Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-relations.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/relations/",
+          "path": "relations/api-calls-sorted-by-module-relations.md"
+        },
+        {
+          "filename": "api-calls-sorted-by-module-relations-relations-diagram.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/relations/relations-diagram/",
+          "path": "relations/api-calls-sorted-by-module-relations-relations-diagram.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-relationen.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/relationen/",
+          "path": "relations/actions-informationen-abfragen-relationen.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen-relationen.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/relationen/",
+          "path": "relations/actions-datensatz-anlegen-relationen.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-relations.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/relations/",
+          "path": "relations/actions-datensatz-bearbeiten-relations.md"
+        },
+        {
+          "filename": "actions-datensatz-loeschen-relations.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-loeschen/relations/",
+          "path": "relations/actions-datensatz-loeschen-relations.md"
+        }
+      ]
+    },
+    {
+      "key": "files",
+      "name": "Files and Templates Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-files.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/files/",
+          "path": "files/api-calls-sorted-by-module-files.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-dateiupload.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/dateiupload/",
+          "path": "files/actions-aktionen-ausfuehren-dateiupload.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-email-pdf-expose-vorlagen.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/email-pdf-expose-vorlagen/",
+          "path": "files/actions-informationen-abfragen-email-pdf-expose-vorlagen.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-default-attachments.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/default-attachments/",
+          "path": "files/actions-informationen-abfragen-default-attachments.md"
+        }
+      ]
+    },
+    {
+      "key": "emails",
+      "name": "Emails Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-emails.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/emails/",
+          "path": "emails/api-calls-sorted-by-module-emails.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-email-versenden.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/email-versenden/",
+          "path": "emails/actions-aktionen-ausfuehren-email-versenden.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-emailverknuepfungen.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/emailverknuepfungen/",
+          "path": "emails/actions-informationen-abfragen-emailverknuepfungen.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-email-info.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/email-info/",
+          "path": "emails/actions-informationen-abfragen-email-info.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-emailverknuepfungen-erstellen.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/emailverknuepfungen-erstellen/",
+          "path": "emails/actions-aktionen-ausfuehren-emailverknuepfungen-erstellen.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-mail-signature.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-mail-signature/",
+          "path": "emails/actions-informationen-abfragen-get-mail-signature.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-email-template-folders.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-email-template-folders/",
+          "path": "emails/actions-informationen-abfragen-get-email-template-folders.md"
+        }
+      ]
+    },
+    {
+      "key": "settings",
+      "name": "Settings Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-settings.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/settings/",
+          "path": "settings/api-calls-sorted-by-module-settings.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-read-basic-settings.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/read-basic-settings/",
+          "path": "settings/actions-datensatz-lesen-read-basic-settings.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-read-imprint.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/read-imprint/",
+          "path": "settings/actions-datensatz-lesen-read-imprint.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-groups.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-groups/",
+          "path": "settings/actions-informationen-abfragen-get-groups.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-user.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/user/",
+          "path": "settings/actions-datensatz-lesen-user.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-users.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-users/",
+          "path": "settings/actions-informationen-abfragen-get-users.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-user-photo.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/user-photo/",
+          "path": "settings/actions-datensatz-lesen-user-photo.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-read-user-rights.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/read-user-rights/",
+          "path": "settings/actions-datensatz-lesen-read-user-rights.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-feldkonfiguration.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/feldkonfiguration/",
+          "path": "settings/actions-informationen-abfragen-feldkonfiguration.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-multiselect-configuration.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-multiselect-configuration/",
+          "path": "settings/actions-informationen-abfragen-get-multiselect-configuration.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-aktionsart-und-typ.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/aktionsart-und-typ/",
+          "path": "settings/actions-informationen-abfragen-aktionsart-und-typ.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-regionen.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/regionen/",
+          "path": "settings/actions-informationen-abfragen-regionen.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-regionen-live-suche.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/regionen-live-suche/",
+          "path": "settings/actions-informationen-abfragen-regionen-live-suche.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-do-access-control-data-record-rights-stamp.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/do-access-control-data-record-rights-stamp/",
+          "path": "settings/actions-aktionen-ausfuehren-do-access-control-data-record-rights-stamp.md"
+        }
+      ]
+    },
+    {
+      "key": "miscellaneous",
+      "name": "Miscellaneous Module",
+      "files": [
+        {
+          "filename": "api-calls-sorted-by-module-miscellaneous.md",
+          "url": "https://apidoc.onoffice.de/api-calls-sorted-by-module/miscellaneous/",
+          "path": "miscellaneous/api-calls-sorted-by-module-miscellaneous.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-records-last-seen.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/records-last-seen/",
+          "path": "miscellaneous/actions-datensatz-lesen-records-last-seen.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-macro-resolve.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-macro-resolve/",
+          "path": "miscellaneous/actions-informationen-abfragen-get-macro-resolve.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen-number-of-log-entries.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/number-of-log-entries/",
+          "path": "miscellaneous/actions-datensatz-lesen-number-of-log-entries.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-survey.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-survey/",
+          "path": "miscellaneous/actions-informationen-abfragen-get-survey.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten-timetracking.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/timetracking/",
+          "path": "miscellaneous/actions-datensatz-bearbeiten-timetracking.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen-get-link.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/get-link/",
+          "path": "miscellaneous/actions-informationen-abfragen-get-link.md"
+        }
+      ]
+    },
+    {
+      "key": "marketplace",
+      "name": "Marketplace Module",
+      "files": [
+        {
+          "filename": "marketplace.md",
+          "url": "https://apidoc.onoffice.de/marketplace/",
+          "path": "marketplace/marketplace.md"
+        },
+        {
+          "filename": "marketplace-unlock-marketplace-provider.md",
+          "url": "https://apidoc.onoffice.de/marketplace/unlock-marketplace-provider/",
+          "path": "marketplace/marketplace-unlock-marketplace-provider.md"
+        },
+        {
+          "filename": "marketplace-get-marketplace-invoice-recipient.md",
+          "url": "https://apidoc.onoffice.de/marketplace/get-marketplace-invoice-recipient/",
+          "path": "marketplace/marketplace-get-marketplace-invoice-recipient.md"
+        },
+        {
+          "filename": "marketplace-cancel-subscription.md",
+          "url": "https://apidoc.onoffice.de/marketplace/cancel-subscription/",
+          "path": "marketplace/marketplace-cancel-subscription.md"
+        },
+        {
+          "filename": "marketplace-generate-subsequent-payment-link.md",
+          "url": "https://apidoc.onoffice.de/marketplace/generate-subsequent-payment-link/",
+          "path": "marketplace/marketplace-generate-subsequent-payment-link.md"
+        },
+        {
+          "filename": "marketplace-refund-transaction.md",
+          "url": "https://apidoc.onoffice.de/marketplace/refund-transaction/",
+          "path": "marketplace/marketplace-refund-transaction.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren-execute-webhooks.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/execute-webhooks/",
+          "path": "marketplace/actions-aktionen-ausfuehren-execute-webhooks.md"
+        }
+      ]
+    },
+    {
+      "key": "special-topics",
+      "name": "Special Topics",
+      "files": [
+        {
+          "filename": "various-special-topics.md",
+          "url": "https://apidoc.onoffice.de/various-special-topics/",
+          "path": "special-topics/various-special-topics.md"
+        },
+        {
+          "filename": "multi-object-module-real-estate-investments.md",
+          "url": "https://apidoc.onoffice.de/multi-object-module-real-estate-investments/",
+          "path": "special-topics/multi-object-module-real-estate-investments.md"
+        },
+        {
+          "filename": "multilingual-estates.md",
+          "url": "https://apidoc.onoffice.de/multilingual-estates/",
+          "path": "special-topics/multilingual-estates.md"
+        },
+        {
+          "filename": "identification-of-data-sets-via-uuid.md",
+          "url": "https://apidoc.onoffice.de/identification-of-data-sets-via-uuid/",
+          "path": "special-topics/identification-of-data-sets-via-uuid.md"
+        }
+      ]
+    },
+    {
+      "key": "actions",
+      "name": "Actions Overview",
+      "files": [
+        {
+          "filename": "actions.md",
+          "url": "https://apidoc.onoffice.de/actions/",
+          "path": "actions/actions.md"
+        },
+        {
+          "filename": "actions-datensatz-lesen.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-lesen/",
+          "path": "actions/actions-datensatz-lesen.md"
+        },
+        {
+          "filename": "actions-datensatz-anlegen.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-anlegen/",
+          "path": "actions/actions-datensatz-anlegen.md"
+        },
+        {
+          "filename": "actions-datensatz-bearbeiten.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-bearbeiten/",
+          "path": "actions/actions-datensatz-bearbeiten.md"
+        },
+        {
+          "filename": "actions-datensatz-loeschen.md",
+          "url": "https://apidoc.onoffice.de/actions/datensatz-loeschen/",
+          "path": "actions/actions-datensatz-loeschen.md"
+        },
+        {
+          "filename": "actions-informationen-abfragen.md",
+          "url": "https://apidoc.onoffice.de/actions/informationen-abfragen/",
+          "path": "actions/actions-informationen-abfragen.md"
+        },
+        {
+          "filename": "actions-aktionen-ausfuehren.md",
+          "url": "https://apidoc.onoffice.de/actions/aktionen-ausfuehren/",
+          "path": "actions/actions-aktionen-ausfuehren.md"
+        }
+      ]
+    }
+  ]
+}
